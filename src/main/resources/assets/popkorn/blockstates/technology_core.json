@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "popkorn:block/technology_core"
+    }
+  }
+}

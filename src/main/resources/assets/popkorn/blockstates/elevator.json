@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "popkorn:block/elevator/elevator"
+    },
+    "powered=true": {
+      "model": "popkorn:block/elevator/elevator_on"
+    }
+  }
+}

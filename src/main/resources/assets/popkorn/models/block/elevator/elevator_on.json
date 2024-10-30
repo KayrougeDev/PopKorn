@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "popkorn:block/elevator/elevator_base",
+    "side": "popkorn:block/elevator/elevator_base",
+    "top": "popkorn:block/elevator/elevator_top_on",
+    "bottom": "popkorn:block/elevator/elevator_bottom_on"
+  }
+}

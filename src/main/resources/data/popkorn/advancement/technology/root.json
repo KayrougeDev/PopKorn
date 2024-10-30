@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "technology_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "popkorn:technology_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "popkorn:textures/block/elevator/elevator_base.png",
+    "description": {
+      "translate": "advancements.technology.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "popkorn:technology_core"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.technology.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "technology_core"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

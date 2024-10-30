@@ -1,0 +1,35 @@
+{
+  "item.popkorn.ray_launcher": "Ray Launcher",
+  "debug.popkorn.item.tooltip": "[DEBUG ONLY]",
+  "debug.popkorn.disabled": "[Disabled]",
+  "debug.popkorn.item.disabled": "This content is for debug only and disabled !",
+  "debug.popkorn.screen.debug": "Debug mode is enabled !",
+
+
+  "block.popkorn.elevator": "Elevator",
+  "block.popkorn.technology_core": "Technology Core",
+
+  "advancements.technology.root.title": "Technology",
+  "advancements.technology.root.description": "A new era begin...",
+
+  "key.popkorn.dash": "Dash",
+
+  "key.popkorn.open_config": "Open config",
+
+  "abilities.cantuse": "No charges left !",
+  "abilities.chainsaw.notarget": "You're not looking at a target !",
+  "abilities.chainsaw.interdimensionalkill": "You can't kill something in another dimension !",
+  "abilities.chainsaw.targetcantbekill": "This target is too powerful to be killed !",
+
+  "abilities.hud.cantrecoverdata": "Unable to recover abilities data",
+
+
+
+  "title.popkorn.config": "PopKorn Config",
+
+
+  "category.popkorn.hud": "Hud",
+
+  "option.popkorn.warncantquerryabilitiesdata": "Can't recover abilities data warning",
+  "option.popkorn.warncantquerryabilitiesdata.tooltip": "Show a warning message if unable to recover abilities data"
+}

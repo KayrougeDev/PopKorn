@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#H#",
+    "CRC",
+    "iFi"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lightning_rod"
+    },
+    "H": {
+      "item": "minecraft:heavy_core"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "R": {
+      "item": "minecraft:raw_gold"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "F": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "result": {
+    "id": "popkorn:technology_core",
+    "count": 3
+  }
+}

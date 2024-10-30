@@ -1,0 +1,73 @@
+package fr.kayrouge.popkorn.items;
+
+import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.blocks.PKBlocks;
+import fr.kayrouge.popkorn.debug.DebugItem;
+import fr.kayrouge.popkorn.items.armor.PKArmorMaterials;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
+
+public class PKItems {
+
+	/**
+	 * This constant is used for debugging purposes.
+	 */
+	@Deprecated
+	public static final RayLauncherItem RAY_LAUNCHER_ITEM = register(new RayLauncherItem(), "ray_launcher");
+
+	public static final Item TEMPORAL_DUST;
+	public static final Item CHAINSAW;
+	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
+	public static final Item RAW_DEMONIC_ENERGY;
+
+	public static final ArmorItem DEMONIC_HELMET;
+	public static final ArmorItem DEMONIC_CHESTPLATE;
+	public static final ArmorItem DEMONIC_LEGGINGS;
+	public static final ArmorItem DEMONIC_BOOTS;
+
+	public static final BlockItem ELEVATOR;
+	public static final BlockItem TECHNOLOGY_CORE;
+	public static final BlockItem DEMONIC_ALTAR;
+
+
+	static {
+		TEMPORAL_DUST = register(new Item(new Item.Settings()), "temporal_dust", ItemGroups.INGREDIENTS);
+		CHAINSAW = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "chainsaw");
+
+		SOLIDIFIED_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.RARE)), "solidified_demonic_energy");
+		RAW_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "raw_demonic_energy");
+
+		DEMONIC_HELMET = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings()), "demonic_helmet");
+		DEMONIC_CHESTPLATE = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings()), "demonic_chestplate");
+		DEMONIC_LEGGINGS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings()), "demonic_leggings");
+		DEMONIC_BOOTS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings()), "demonic_boots");
+
+		ELEVATOR = register(new BlockItem(PKBlocks.ELEVATOR,  new Item.Settings().rarity(Rarity.RARE)), "elevator",ItemGroups.REDSTONE_BLOCKS);
+		TECHNOLOGY_CORE = register(new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), "technology_core", ItemGroups.REDSTONE_BLOCKS);
+		DEMONIC_ALTAR = register(new BlockItem(PKBlocks.DEMONIC_ALTAR, new Item.Settings().rarity(Rarity.EPIC).fireproof()), "demonic_altar", ItemGroups.FUNCTIONAL_BLOCKS);
+	}
+
+	public static <T extends Item> T register(T item, String name) {
+		Registry.register(Registries.ITEM, Identifier.of(PopKorn.MODID, name), item);
+		return item;
+	}
+
+	public static <T extends Item> T register(T item, String name, RegistryKey<ItemGroup> group) {
+		Registry.register(Registries.ITEM, Identifier.of(PopKorn.MODID, name), item);
+		registerInItemGroup(group, item);
+		return item;
+	}
+
+	public static void registerInItemGroup(RegistryKey<ItemGroup> group, Item item) {
+		if(item instanceof DebugItem && !PopKorn.DEBUG) return;
+		ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.addItem(item));
+	}
+
+	public static void initialize() {
+	}
+}

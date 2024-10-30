@@ -1,0 +1,44 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "${group}",
+		"id": "popkorn",
+		"version": "${version}",
+		"metadata": {
+			"name": "pop_k0rn",
+			"description": "A short description of your mod.",
+			"contributors": {
+				"Kayrouge": "Owner"
+			},
+			"contact": {
+				"homepage": ""
+			},
+			"icon": "assets/popkorn/textures/item/ray_launcher.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "fr.kayrouge.popkorn.PopKorn",
+			"client_init": "fr.kayrouge.popkorn.client.PopKornClient",
+			"modmenu": [ "fr.kayrouge.popkorn.util.impl.PopKornModMenuApiImpl" ]
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.26.4"
+			},
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.26.4"
+			},
+			{
+				"id": "cloth-config",
+				"versions": ">=15.0.140"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.21"
+			}
+		]
+	},
+	"mixin": "popkorn.mixins.json"
+}

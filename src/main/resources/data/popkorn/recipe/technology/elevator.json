@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iEi",
+    "iHi"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "H": {
+      "item": "popkorn:technology_core"
+    }
+  },
+  "result": {
+    "id": "popkorn:elevator",
+    "count": 3
+  }
+}

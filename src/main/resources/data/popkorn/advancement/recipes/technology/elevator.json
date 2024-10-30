@@ -1,0 +1,25 @@
+{
+  "parent": "popkorn:recipes/root",
+  "criteria": {
+    "has_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "popkorn:technology_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "popkorn:technology/elevator"
+    ]
+  }
+}
