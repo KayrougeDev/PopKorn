@@ -1,6 +1,5 @@
 package fr.kayrouge.popkorn.recipe;
 
-import fr.kayrouge.popkorn.PopKorn;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeInput;
 

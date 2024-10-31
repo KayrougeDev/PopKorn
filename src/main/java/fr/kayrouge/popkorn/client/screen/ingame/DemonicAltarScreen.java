@@ -7,11 +7,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.CraftingRecipeInput;
-import net.minecraft.recipe.SmithingRecipe;
-import net.minecraft.recipe.SmithingRecipeInput;
-import net.minecraft.screen.SmithingScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 

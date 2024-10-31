@@ -21,7 +21,7 @@ public class PopKornClientConfig extends ReflectiveConfig {
 	public Screen init(Screen parent) {
 		ConfigBuilder builder = ConfigBuilder.create()
 			.setParentScreen(parent)
-			.setTitle(Text.translatable("title.popkorn.config"));
+			.setTitle(Text.translatable("title.popkorn.config.client"));
 
 		ConfigCategory hud = builder.getOrCreateCategory(Text.translatable("category.popkorn.hud"));
 		ConfigEntryBuilder entryBuilder = builder.entryBuilder();

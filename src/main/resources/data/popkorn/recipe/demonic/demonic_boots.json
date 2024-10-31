@@ -1,0 +1,22 @@
+{
+  "type" : "popkorn:demonic_altar",
+  "right": {
+    "item":"popkorn:solidified_demonic_energy"
+  },
+  "bottom": {
+    "item":"popkorn:solidified_demonic_energy"
+  },
+  "base": {
+    "item":"minecraft:netherite_boots"
+  },
+  "left": {
+    "item":"popkorn:solidified_demonic_energy"
+  },
+  "top" : {
+    "item":"minecraft:rabbit_foot"
+  },
+  "result": {
+    "id":"popkorn:demonic_boots",
+    "count":1
+  }
+}

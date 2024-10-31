@@ -7,6 +7,7 @@
 
 
   "block.popkorn.elevator": "Elevator",
+  "block.popkorn.elevator.noblockinrange": "No elevator find in range (%1$s blocks)",
   "block.popkorn.technology_core": "Technology Core",
 
   "advancements.technology.root.title": "Technology",
@@ -26,10 +27,18 @@
 
 
   "title.popkorn.config": "PopKorn Config",
+  "title.popkorn.config.client": "Client Config",
+  "title.popkorn.config.server": "Server Config",
 
 
   "category.popkorn.hud": "Hud",
 
   "option.popkorn.warncantquerryabilitiesdata": "Can't recover abilities data warning",
-  "option.popkorn.warncantquerryabilitiesdata.tooltip": "Show a warning message if unable to recover abilities data"
+  "option.popkorn.warncantquerryabilitiesdata.tooltip": "Show a warning message if unable to recover abilities data",
+
+
+  "category.popkorn.block": "Block",
+
+  "option.popkorn.elevatormaxdistance": "Elevator maximum distance",
+  "option.popkorn.elevatormaxdistance.tooltip": "The maximum distance an elevator can teleport the player (0 = infinite)"
 }

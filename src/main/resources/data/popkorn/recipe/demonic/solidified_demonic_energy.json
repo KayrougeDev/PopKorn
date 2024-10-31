@@ -1,0 +1,22 @@
+{
+  "type" : "popkorn:demonic_altar",
+  "right": {
+    "item":"popkorn:raw_demonic_energy"
+  },
+  "bottom": {
+    "item":"popkorn:raw_demonic_energy"
+  },
+  "base": {
+    "item":"minecraft:slime_block"
+  },
+  "left": {
+    "item":"popkorn:raw_demonic_energy"
+  },
+  "top" : {
+    "item":"minecraft:blaze_powder"
+  },
+  "result": {
+    "id":"popkorn:solidified_demonic_energy",
+    "count": 3
+  }
+}

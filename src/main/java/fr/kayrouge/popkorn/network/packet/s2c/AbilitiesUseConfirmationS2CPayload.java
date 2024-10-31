@@ -1,6 +1,5 @@
 package fr.kayrouge.popkorn.network.packet.s2c;
 
-import fr.kayrouge.popkorn.client.PopKornClient;
 import fr.kayrouge.popkorn.client.manager.ClientPlayerManager;
 import fr.kayrouge.popkorn.network.packet.PKNetworkingConstants;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

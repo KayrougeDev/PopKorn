@@ -13,12 +13,6 @@ public class PKBlockEntityTypes {
 		return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PopKorn.MODID, path), blockEntityType);
 	}
 
-	public static final BlockEntityType<DemonicAltarBlockEntity> DEMONIC_ALTAR;
-
-	static {
-		DEMONIC_ALTAR = register("demonic_altar",BlockEntityType.Builder.create(DemonicAltarBlockEntity::new, PKBlocks.DEMONIC_ALTAR).build());
-	}
-
 	public static void initialize() {
 	}
 

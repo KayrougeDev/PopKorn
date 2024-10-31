@@ -2,9 +2,11 @@ package fr.kayrouge.popkorn.mixin;
 
 import fr.kayrouge.popkorn.blocks.ElevatorBlock;
 import fr.kayrouge.popkorn.blocks.PKBlocks;
+import fr.kayrouge.popkorn.util.configs.PopKornServerConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -14,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
-public class EntityMixin {
+public abstract class EntityMixin {
 
 	@Inject(method = "setSneaking", at = @At("HEAD"), cancellable = true)
 	public void startSneak(boolean sneaking, CallbackInfo ci) {
@@ -24,7 +26,15 @@ public class EntityMixin {
 				World world = player.getWorld();
 				BlockPos blockPos = player.getBlockPos().down();
 				if(world.getBlockState(blockPos).getBlock() == PKBlocks.ELEVATOR) {
-					for(int i = blockPos.getY()-1; i > world.getBottomY()-1; i--) {
+					int distance = world.getBottomY()-1;
+
+					boolean notInfinite = PopKornServerConfig.INSTANCE.elevatorMaxDistance.value() != 0;
+
+					if(notInfinite) {
+						distance = blockPos.getY()-PopKornServerConfig.INSTANCE.elevatorMaxDistance.value();
+					}
+
+					for(int i = blockPos.getY()-1; i > Math.min(world.getBottomY()-1, distance); i--) {
 						BlockPos nextPos = blockPos.withY(i);
 						if(world.getBlockState(nextPos).getBlock() == PKBlocks.ELEVATOR) {
 							world.setBlockState(blockPos, PKBlocks.ELEVATOR.getDefaultState().with(Properties.POWERED, true).with(Properties.VERTICAL_DIRECTION, Direction.DOWN));
@@ -33,6 +43,9 @@ public class EntityMixin {
 							ci.cancel();
 							return;
 						}
+					}
+					if(notInfinite) {
+						player.sendMessage(Text.translatable("block.popkorn.elevator.noblockinrange", PopKornServerConfig.INSTANCE.elevatorMaxDistance.value()), true);
 					}
 				}
 			}

@@ -1,15 +1,17 @@
 package fr.kayrouge.popkorn.blocks;
 
 import com.mojang.serialization.MapCodec;
-import fr.kayrouge.popkorn.blocks.entity.DemonicAltarBlockEntity;
+import fr.kayrouge.popkorn.screen.DemonicAltarScreenHandler;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.*;
+import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
@@ -17,20 +19,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class DemonicAltarBlock extends BlockWithEntity {
+public class DemonicAltarBlock extends Block {
 
 	public DemonicAltarBlock(Settings settings) {
 		super(settings);
 	}
 
-	@Override
-	protected MapCodec<? extends BlockWithEntity> getCodec() {
-		return createCodec(DemonicAltarBlock::new);
-	}
+	private static final Text TITLE = Text.translatable("container.demonic_altar");
 
 	@Override
-	public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new DemonicAltarBlockEntity(pos, state);
+	protected MapCodec<? extends Block> getCodec() {
+		return createCodec(DemonicAltarBlock::new);
 	}
 
 	@Override
@@ -40,34 +39,17 @@ public class DemonicAltarBlock extends BlockWithEntity {
 
 	@Override
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity entity, BlockHitResult hitResult) {
-		if(!world.isClient) {
-			NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-			if(screenHandlerFactory != null) {
-				entity.openHandledScreen(screenHandlerFactory);
-			}
-		}
-		return ActionResult.SUCCESS;
-	}
-
-	@Override
-	protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-		if (state.getBlock() != newState.getBlock()) {
-			if (world.getBlockEntity(pos) instanceof DemonicAltarBlockEntity blockEntity) {
-				ItemScatterer.spawn(world, pos, (Inventory)blockEntity);
-				// update comparators
-				world.updateComparators(pos,this);
-			}
-			super.onStateReplaced(state, world, pos, newState, moved);
+		if (world.isClient) {
+			return ActionResult.SUCCESS;
+		} else {
+			entity.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+			entity.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+			return ActionResult.CONSUME;
 		}
 	}
 
 	@Override
-	protected boolean hasComparatorOutput(BlockState state) {
-		return true;
-	}
-
-	@Override
-	protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+	protected @Nullable NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+		return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new DemonicAltarScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), TITLE);
 	}
 }

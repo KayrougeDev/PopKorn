@@ -1,7 +1,6 @@
 package fr.kayrouge.popkorn.blocks;
 
 import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.blocks.entity.DemonicAltarBlockEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

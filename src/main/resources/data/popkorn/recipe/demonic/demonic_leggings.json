@@ -1,0 +1,22 @@
+{
+  "type" : "popkorn:demonic_altar",
+  "right": {
+    "item":"popkorn:solidified_demonic_energy"
+  },
+  "bottom": {
+    "item":"popkorn:solidified_demonic_energy"
+  },
+  "base": {
+    "item":"minecraft:netherite_leggings"
+  },
+  "left": {
+    "item":"popkorn:solidified_demonic_energy"
+  },
+  "top" : {
+    "item":"minecraft:breeze_rod"
+  },
+  "result": {
+    "id":"popkorn:demonic_leggings",
+    "count":1
+  }
+}

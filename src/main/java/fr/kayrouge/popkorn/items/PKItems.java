@@ -39,13 +39,13 @@ public class PKItems {
 		TEMPORAL_DUST = register(new Item(new Item.Settings()), "temporal_dust", ItemGroups.INGREDIENTS);
 		CHAINSAW = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "chainsaw");
 
-		SOLIDIFIED_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.RARE)), "solidified_demonic_energy");
-		RAW_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "raw_demonic_energy");
+		SOLIDIFIED_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.RARE)), "solidified_demonic_energy", ItemGroups.INGREDIENTS);
+		RAW_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "raw_demonic_energy", ItemGroups.INGREDIENTS);
 
-		DEMONIC_HELMET = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings()), "demonic_helmet");
-		DEMONIC_CHESTPLATE = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings()), "demonic_chestplate");
-		DEMONIC_LEGGINGS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings()), "demonic_leggings");
-		DEMONIC_BOOTS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings()), "demonic_boots");
+		DEMONIC_HELMET = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.HELMET.getBaseDurability(40))), "demonic_helmet", ItemGroups.COMBAT);
+		DEMONIC_CHESTPLATE = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.CHESTPLATE.getBaseDurability(40))), "demonic_chestplate", ItemGroups.COMBAT);
+		DEMONIC_LEGGINGS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.LEGGINGS.getBaseDurability(40))), "demonic_leggings", ItemGroups.COMBAT);
+		DEMONIC_BOOTS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.BOOTS.getBaseDurability(40))), "demonic_boots", ItemGroups.COMBAT);
 
 		ELEVATOR = register(new BlockItem(PKBlocks.ELEVATOR,  new Item.Settings().rarity(Rarity.RARE)), "elevator",ItemGroups.REDSTONE_BLOCKS);
 		TECHNOLOGY_CORE = register(new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), "technology_core", ItemGroups.REDSTONE_BLOCKS);

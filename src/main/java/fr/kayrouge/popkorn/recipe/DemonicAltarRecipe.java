@@ -2,7 +2,6 @@ package fr.kayrouge.popkorn.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import fr.kayrouge.popkorn.PopKorn;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -10,7 +9,6 @@ import net.minecraft.recipe.*;
 import net.minecraft.registry.HolderLookup;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class DemonicAltarRecipe implements Recipe<DemonicAltarRecipeInput> {
@@ -32,14 +30,11 @@ public class DemonicAltarRecipe implements Recipe<DemonicAltarRecipeInput> {
 
 	@Override
 	public boolean matches(DemonicAltarRecipeInput input, World world) {
-		boolean b =this.base.test(input.base()) && this.left.test(input.left()) && this.top.test(input.top()) && this.right.test(input.right()) && this.bottom.test(input.bottom());
-		PopKorn.LOGGER.info("S43J matches recipe {}", b);
-		return b;
+		return this.base.test(input.base()) && this.left.test(input.left()) && this.top.test(input.top()) && this.right.test(input.right()) && this.bottom.test(input.bottom());
 	}
 
 	@Override
 	public ItemStack craft(DemonicAltarRecipeInput input, HolderLookup.Provider provider) {
-		PopKorn.LOGGER.info("S43J CRAFT");
 		return this.result.copy();
 	}
 
@@ -50,7 +45,6 @@ public class DemonicAltarRecipe implements Recipe<DemonicAltarRecipeInput> {
 
 	@Override
 	public ItemStack getResult(HolderLookup.Provider provider) {
-		PopKorn.LOGGER.info("S43J RESULT {}",this.result.getItem().getTranslationKey());
 		return this.result;
 	}
 
@@ -92,12 +86,6 @@ public class DemonicAltarRecipe implements Recipe<DemonicAltarRecipeInput> {
 			Ingredient ingredient5 = Ingredient.PACKET_CODEC.decode(buf);
 
 			ItemStack stack = ItemStack.PACKET_CODEC.decode(buf);
-
-			if(Arrays.stream(ingredient.getMatchingStacks()).findFirst().isPresent()) {
-				PopKorn.LOGGER.info("S43J READ BASE {}", Arrays.stream(ingredient.getMatchingStacks()).findFirst().get().getItem().getTranslationKey());
-			}
-
-
 
 			return new DemonicAltarRecipe(ingredient, ingredient2, ingredient3, ingredient4, ingredient5, stack);
 		}

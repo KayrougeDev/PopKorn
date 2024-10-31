@@ -17,7 +17,6 @@ public class PKRecipes {
 			@Override
 			public String toString() { return "demonic_altar"; }
 		});
-
 		DEMONIC_ALTAR_RECIPE_SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(PopKorn.MODID, "demonic_altar"), new DemonicAltarRecipe.Serializer());
 	}
 

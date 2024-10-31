@@ -31,6 +31,7 @@ public abstract class HeldItemRendererMixin {
 	@Unique
 	private int progress = 0;
 
+	// Method use to render first person held item (or hand)
 	@Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
 	public void renderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
 		if(ClientPlayerManager.getAbility("chainsaw").isUsed()) {

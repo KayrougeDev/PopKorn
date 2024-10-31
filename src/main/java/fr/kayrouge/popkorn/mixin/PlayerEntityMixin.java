@@ -1,13 +1,11 @@
 package fr.kayrouge.popkorn.mixin;
 
-import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.blocks.ElevatorBlock;
 import fr.kayrouge.popkorn.blocks.PKBlocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.client.MinecraftClient;
+import fr.kayrouge.popkorn.util.configs.PopKornServerConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -26,7 +24,16 @@ public class PlayerEntityMixin {
 		BlockPos blockPos = player.getBlockPos().down();
 		World world = player.getWorld();
 		if(world.getBlockState(blockPos).getBlock() == PKBlocks.ELEVATOR) {
-			for(int i = blockPos.getY()+1; i < world.getHeight(); i++) {
+
+			int distance = world.getHeight();
+
+			boolean notInfinite = PopKornServerConfig.INSTANCE.elevatorMaxDistance.value() != 0;
+
+			if(notInfinite) {
+				distance = blockPos.getY()-PopKornServerConfig.INSTANCE.elevatorMaxDistance.value();
+			}
+
+			for(int i = blockPos.getY()+1; i < Math.min(world.getHeight(), distance); i++) {
 				BlockPos nextPos = blockPos.withY(i);
 				if(world.getBlockState(nextPos).getBlock() == PKBlocks.ELEVATOR) {
 					if(player.teleport(nextPos.getX()+0.5d, nextPos.getY()+1d, nextPos.getZ()+0.5d, false)) {
@@ -36,6 +43,9 @@ public class PlayerEntityMixin {
 						return;
 					}
 				}
+			}
+			if(notInfinite) {
+				player.sendMessage(Text.translatable("block.popkorn.elevator.noblockinrange", PopKornServerConfig.INSTANCE.elevatorMaxDistance.value()), true);
 			}
 		}
 	}

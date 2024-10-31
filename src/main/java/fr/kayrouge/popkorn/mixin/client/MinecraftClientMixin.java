@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
+/* Tested something
 	@Unique
 	private boolean firstTime = true;
 
@@ -37,10 +38,16 @@ public abstract class MinecraftClientMixin {
 				ci.cancel();
 			}
 		}
-	}
+	}*/
 
+
+	// Methode called when the player quit a server / world
 	@Inject(method = "method_18096", at = @At("HEAD"))
 	public void onDisconnected(Screen screen, boolean bl, CallbackInfo ci) {
+		/*
+		* Add this because without it, if you join a server that doesn't PopKorn installed, it
+		* will still show the abilities' icon
+		* */
 		ClientPlayerManager.clearAbilities();
 	}
 }
