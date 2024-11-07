@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin {
+public class EntityMixin {
 
 	@Inject(method = "setSneaking", at = @At("HEAD"), cancellable = true)
 	public void startSneak(boolean sneaking, CallbackInfo ci) {

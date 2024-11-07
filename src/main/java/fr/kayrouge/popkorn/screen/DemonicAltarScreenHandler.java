@@ -1,7 +1,6 @@
 package fr.kayrouge.popkorn.screen;
 
 import fr.kayrouge.popkorn.blocks.PKBlocks;
-import fr.kayrouge.popkorn.client.screen.PKHandledScreens;
 import fr.kayrouge.popkorn.inventory.DemonicAltarInventory;
 import fr.kayrouge.popkorn.inventory.DemonicAltarResultInventory;
 import fr.kayrouge.popkorn.recipe.DemonicAltarRecipe;
@@ -76,12 +75,10 @@ public class DemonicAltarScreenHandler extends AbstractRecipeScreenHandler<Demon
 
 	}
 
-	@Override
+    @Override
 	public void onContentChanged(Inventory inventory) {
 		if (!this.field_51625) {
-			this.context.run((world, pos) -> {
-				craft(this, world, this.player, this.input, this.result, null);
-			});
+			this.context.run((world, pos) -> craft(this, world, this.player, this.input, this.result, null));
 		}
 	}
 
@@ -93,9 +90,7 @@ public class DemonicAltarScreenHandler extends AbstractRecipeScreenHandler<Demon
 	@Override
 	protected void method_59964(RecipeHolder<DemonicAltarRecipe> recipeHolder) {
 		this.field_51625 = false;
-		this.context.run((world, pos) -> {
-			craft(this, world, this.player, this.input, this.result, recipeHolder);
-		});
+		this.context.run((world, pos) -> craft(this, world, this.player, this.input, this.result, recipeHolder));
 	}
 
 	@Override
@@ -106,9 +101,7 @@ public class DemonicAltarScreenHandler extends AbstractRecipeScreenHandler<Demon
 			ItemStack itemStack2 = slot.getStack();
 			itemStack = itemStack2.copy();
 			if (fromIndex == 0) {
-				this.context.run((world, pos) -> {
-					itemStack2.getItem().onCraftByPlayer(itemStack2, world, player);
-				});
+				this.context.run((world, pos) -> itemStack2.getItem().onCraftByPlayer(itemStack2, world, player));
 				if (!this.insertItem(itemStack2, 6, 42, true)) {
 					return ItemStack.EMPTY;
 				}
@@ -194,9 +187,7 @@ public class DemonicAltarScreenHandler extends AbstractRecipeScreenHandler<Demon
 	@Override
 	public void close(PlayerEntity player) {
 		super.close(player);
-		this.context.run((world, pos) -> {
-			this.dropInventory(player, this.input);
-		});
+		this.context.run((world, pos) -> this.dropInventory(player, this.input));
 	}
 
 	@Override

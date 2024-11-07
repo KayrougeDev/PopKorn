@@ -10,6 +10,9 @@
   "block.popkorn.elevator.noblockinrange": "No elevator find in range (%1$s blocks)",
   "block.popkorn.technology_core": "Technology Core",
 
+  "block.popkorn.item_display": "Item Display",
+  "block.popkorn.item_display.notinrange": "This item display is too far",
+
   "advancements.technology.root.title": "Technology",
   "advancements.technology.root.description": "A new era begin...",
 
@@ -23,7 +26,6 @@
   "abilities.chainsaw.targetcantbekill": "This target is too powerful to be killed !",
 
   "abilities.hud.cantrecoverdata": "Unable to recover abilities data",
-
 
 
   "title.popkorn.config": "PopKorn Config",
