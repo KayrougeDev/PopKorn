@@ -1,9 +1,11 @@
 package fr.kayrouge.popkorn.mixin;
 
+import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.blocks.ElevatorBlock;
 import fr.kayrouge.popkorn.blocks.PKBlocks;
 import fr.kayrouge.popkorn.util.configs.PopKornServerConfig;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +15,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.OptionalInt;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
@@ -48,5 +53,10 @@ public class PlayerEntityMixin {
 				player.sendMessage(Text.translatable("block.popkorn.elevator.noblockinrange", PopKornServerConfig.INSTANCE.elevatorMaxDistance.value()), true);
 			}
 		}
+	}
+
+	@Inject(method = "openHandledScreen", at = @At("HEAD"))
+	public void openHandledScreen(NamedScreenHandlerFactory factory, CallbackInfoReturnable<OptionalInt> cir) {
+		PopKorn.LOGGER.info(factory.getDisplayName().getLiteralString());
 	}
 }

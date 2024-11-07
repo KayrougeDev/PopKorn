@@ -33,6 +33,7 @@ public class PKItems {
 	public static final BlockItem ELEVATOR;
 	public static final BlockItem TECHNOLOGY_CORE;
 	public static final BlockItem DEMONIC_ALTAR;
+	public static final BlockItem ITEM_DISPLAY;
 
 
 	static {
@@ -50,6 +51,7 @@ public class PKItems {
 		ELEVATOR = register(new BlockItem(PKBlocks.ELEVATOR,  new Item.Settings().rarity(Rarity.RARE)), "elevator",ItemGroups.REDSTONE_BLOCKS);
 		TECHNOLOGY_CORE = register(new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), "technology_core", ItemGroups.REDSTONE_BLOCKS);
 		DEMONIC_ALTAR = register(new BlockItem(PKBlocks.DEMONIC_ALTAR, new Item.Settings().rarity(Rarity.EPIC).fireproof()), "demonic_altar", ItemGroups.FUNCTIONAL_BLOCKS);
+		ITEM_DISPLAY = register(new BlockItem(PKBlocks.ITEM_DISPLAY, new Item.Settings()), "item_display", ItemGroups.FUNCTIONAL_BLOCKS);
 	}
 
 	public static <T extends Item> T register(T item, String name) {
