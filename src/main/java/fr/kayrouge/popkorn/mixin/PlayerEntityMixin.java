@@ -54,4 +54,9 @@ public class PlayerEntityMixin {
 			}
 		}
 	}
+
+	@Inject(method = "openHandledScreen", at = @At("HEAD"))
+	public void openHandledScreen(NamedScreenHandlerFactory factory, CallbackInfoReturnable<OptionalInt> cir) {
+		PopKorn.LOGGER.info(factory.getDisplayName().getLiteralString());
+	}
 }
