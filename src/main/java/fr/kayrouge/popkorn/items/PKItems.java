@@ -4,6 +4,7 @@ import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.blocks.PKBlocks;
 import fr.kayrouge.popkorn.debug.DebugItem;
 import fr.kayrouge.popkorn.items.armor.PKArmorMaterials;
+import fr.kayrouge.popkorn.items.group.PKItemGroups;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -20,7 +21,6 @@ public class PKItems {
 	@Deprecated
 	public static final RayLauncherItem RAY_LAUNCHER_ITEM = register(new RayLauncherItem(), "ray_launcher");
 
-	public static final Item TEMPORAL_DUST;
 	public static final Item CHAINSAW;
 	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
 	public static final Item RAW_DEMONIC_ENERGY;
@@ -37,16 +37,15 @@ public class PKItems {
 
 
 	static {
-		TEMPORAL_DUST = register(new Item(new Item.Settings()), "temporal_dust", ItemGroups.INGREDIENTS);
-		CHAINSAW = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "chainsaw");
+		CHAINSAW = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "chainsaw", ItemGroups.TOOLS_AND_UTILITIES);
 
-		SOLIDIFIED_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.RARE)), "solidified_demonic_energy", ItemGroups.INGREDIENTS);
-		RAW_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "raw_demonic_energy", ItemGroups.INGREDIENTS);
+		SOLIDIFIED_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.RARE)), "solidified_demonic_energy", PKItemGroups.DEMONIC);
+		RAW_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "raw_demonic_energy", PKItemGroups.DEMONIC);
 
-		DEMONIC_HELMET = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.HELMET.getBaseDurability(40))), "demonic_helmet", ItemGroups.COMBAT);
-		DEMONIC_CHESTPLATE = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.CHESTPLATE.getBaseDurability(40))), "demonic_chestplate", ItemGroups.COMBAT);
-		DEMONIC_LEGGINGS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.LEGGINGS.getBaseDurability(40))), "demonic_leggings", ItemGroups.COMBAT);
-		DEMONIC_BOOTS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.BOOTS.getBaseDurability(40))), "demonic_boots", ItemGroups.COMBAT);
+		DEMONIC_HELMET = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.HELMET.getBaseDurability(40))), "demonic_helmet", PKItemGroups.DEMONIC);
+		DEMONIC_CHESTPLATE = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.CHESTPLATE.getBaseDurability(40))), "demonic_chestplate", PKItemGroups.DEMONIC);
+		DEMONIC_LEGGINGS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.LEGGINGS.getBaseDurability(40))), "demonic_leggings", PKItemGroups.DEMONIC);
+		DEMONIC_BOOTS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.BOOTS.getBaseDurability(40))), "demonic_boots", PKItemGroups.DEMONIC);
 
 		ELEVATOR = register(new BlockItem(PKBlocks.ELEVATOR,  new Item.Settings().rarity(Rarity.RARE)), "elevator",ItemGroups.REDSTONE_BLOCKS);
 		TECHNOLOGY_CORE = register(new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), "technology_core", ItemGroups.REDSTONE_BLOCKS);

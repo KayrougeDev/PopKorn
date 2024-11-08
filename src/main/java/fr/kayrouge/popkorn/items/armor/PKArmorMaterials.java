@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.items.armor;
 
+import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.items.PKItems;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -33,20 +34,19 @@ public class PKArmorMaterials {
 
 
 	private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.ArmorSlot, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Identifier.ofDefault(name)));
+		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Identifier.of(PopKorn.MODID, name)));
 		return register(name, defense, enchantmentValue, equipSound, toughness, knockbackResistance, repairIngredient, list);
 	}
 
 	private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.ArmorSlot, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers) {
 		EnumMap<ArmorItem.ArmorSlot, Integer> enumMap = new EnumMap<>(ArmorItem.ArmorSlot.class);
 		ArmorItem.ArmorSlot[] var9 = ArmorItem.ArmorSlot.values();
-		int var10 = var9.length;
 
 		for (ArmorItem.ArmorSlot armorSlot : var9) {
 			enumMap.put(armorSlot, defense.get(armorSlot));
 		}
 
-		return Registry.registerHolder(Registries.ARMOR_MATERIAL, Identifier.ofDefault(name), new ArmorMaterial(enumMap, enchantmentValue, equipSound, repairIngredient, layers, toughness, knockbackResistance));
+		return Registry.registerHolder(Registries.ARMOR_MATERIAL, Identifier.of(PopKorn.MODID, name), new ArmorMaterial(enumMap, enchantmentValue, equipSound, repairIngredient, layers, toughness, knockbackResistance));
 	}
 
 }

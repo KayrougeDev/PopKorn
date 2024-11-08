@@ -28,7 +28,7 @@ public class DemonicAltarBlockEntityRenderer implements BlockEntityRenderer<Demo
 		double y = 0.001d;
 		double z = 0.5d;
 
-		Identifier identifier = Identifier.of("popkorn", "textures/gui/sprites/hud/abilities/icon_base.png");
+		Identifier identifier = Identifier.of("popkorn", "textures/effects/demonic_altar.png");
 
 		RenderSystem.setShaderTexture(0, identifier);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -42,6 +42,7 @@ public class DemonicAltarBlockEntityRenderer implements BlockEntityRenderer<Demo
 
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder buffer = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+
 
 		/*
 		*
@@ -72,5 +73,10 @@ public class DemonicAltarBlockEntityRenderer implements BlockEntityRenderer<Demo
 
 		RenderSystem.disableBlend();
 		matrices.pop();
+	}
+
+	@Override
+	public int getRenderDistance() {
+		return 45;
 	}
 }

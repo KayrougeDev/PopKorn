@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "display_item=true,facing=east": {
+      "model": "popkorn:block/item_display",
+      "y": 90
+    },
+    "display_item=true,facing=north": {
+      "model": "popkorn:block/item_display"
+    },
+    "display_item=true,facing=south": {
+      "model": "popkorn:block/item_display",
+      "y": 180
+    },
+    "display_item=true,facing=west": {
+      "model": "popkorn:block/item_display",
+      "y": 270
+    },
+    "display_item=false,facing=east": {
+      "model": "popkorn:block/item_display",
+      "y": 90
+    },
+    "display_item=false,facing=north": {
+      "model": "popkorn:block/item_display"
+    },
+    "display_item=false,facing=south": {
+      "model": "popkorn:block/item_display",
+      "y": 180
+    },
+    "display_item=false,facing=west": {
+      "model": "popkorn:block/item_display",
+      "y": 270
+    }
+  }
+}

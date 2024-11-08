@@ -2,6 +2,7 @@ package fr.kayrouge.popkorn;
 
 import fr.kayrouge.popkorn.blocks.PKBlocks;
 import fr.kayrouge.popkorn.blocks.entity.PKBlockEntityTypes;
+import fr.kayrouge.popkorn.items.group.PKItemGroups;
 import fr.kayrouge.popkorn.screen.PKHandledScreens;
 import fr.kayrouge.popkorn.network.packet.PKNetworkingConstants;
 import fr.kayrouge.popkorn.items.PKItems;
@@ -26,6 +27,7 @@ public class PopKorn implements ModInitializer {
 		PKBlocks.initialize();
 		PKBlockEntityTypes.initialize();
 		PKItems.initialize();
+		PKItemGroups.initialize();
 
 		PKNetworkingConstants.registerC2S();
 		PKNetworkingConstants.registerS2C();

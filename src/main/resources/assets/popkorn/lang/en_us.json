@@ -42,5 +42,7 @@
   "category.popkorn.block": "Block",
 
   "option.popkorn.elevatormaxdistance": "Elevator maximum distance",
-  "option.popkorn.elevatormaxdistance.tooltip": "The maximum distance an elevator can teleport the player (0 = infinite)"
+  "option.popkorn.elevatormaxdistance.tooltip": "The maximum distance an elevator can teleport the player (0 = infinite)",
+
+  "itemGroup.demonic": "Demonic"
 }

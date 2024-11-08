@@ -17,19 +17,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemDisplayBlock extends BlockWithEntity {
 
 	public static final BooleanProperty DISPLAY_ITEM;
+	public static final DirectionProperty FACING;
 
 	protected ItemDisplayBlock(Settings settings) {
 		super(settings);
-		this.setDefaultState(this.getDefaultState().with(DISPLAY_ITEM, true));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(DISPLAY_ITEM, true).with(FACING, Direction.NORTH));
 	}
 
 	@Override
@@ -39,7 +44,7 @@ public class ItemDisplayBlock extends BlockWithEntity {
 
 	@Override
 	public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-		return super.getPlacementState(ctx);
+		return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
 	}
 
 	@Override
@@ -56,8 +61,13 @@ public class ItemDisplayBlock extends BlockWithEntity {
 	}
 
 	@Override
+	protected BlockState rotate(BlockState state, BlockRotation rotation) {
+		return state.with(FACING, rotation.rotate(state.get(FACING)));
+	}
+
+	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(DISPLAY_ITEM);
+		builder.add(DISPLAY_ITEM, FACING);
 	}
 
 	@Override
@@ -89,7 +99,6 @@ public class ItemDisplayBlock extends BlockWithEntity {
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
 		if(itemStack.getComponents().contains(DataComponentTypes.BLOCK_ENTITY_DATA)) {
-			PopKorn.LOGGER.info("CONTAINS");
 			state.with(DISPLAY_ITEM, true);
 		}
 	}
@@ -107,7 +116,9 @@ public class ItemDisplayBlock extends BlockWithEntity {
 		return super.onBreak(world, pos, state, player);
 	}
 
+
 	static {
 		DISPLAY_ITEM = BooleanProperty.of("display_item");
+		FACING = Properties.FACING;
 	}
 }

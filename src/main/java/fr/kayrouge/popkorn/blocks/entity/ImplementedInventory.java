@@ -68,7 +68,7 @@ public interface ImplementedInventory extends Inventory {
 	 * Removes items from an inventory slot.
 	 * @param slot  The slot to remove from.
 	 * @param count How many items to remove. If there are less items in the slot than what are requested,
-	 *              takes all items in that slot.
+	 *               take all items in that slot.
 	 */
 	@Override
 	default ItemStack removeStack(int slot, int count) {
