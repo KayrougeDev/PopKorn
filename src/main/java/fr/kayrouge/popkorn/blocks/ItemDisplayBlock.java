@@ -1,7 +1,6 @@
 package fr.kayrouge.popkorn.blocks;
 
 import com.mojang.serialization.MapCodec;
-import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.blocks.entity.ItemDisplayBlockEntity;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;

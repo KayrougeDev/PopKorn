@@ -2,6 +2,7 @@ package fr.kayrouge.popkorn.blocks.entity.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.blocks.entity.DemonicAltarBlockEntity;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -28,7 +29,7 @@ public class DemonicAltarBlockEntityRenderer implements BlockEntityRenderer<Demo
 		double y = 0.001d;
 		double z = 0.5d;
 
-		Identifier identifier = Identifier.of("popkorn", "textures/effects/demonic_altar.png");
+		Identifier identifier = Identifier.of(PopKorn.MODID, "textures/effects/demonic_altar.png");
 
 		RenderSystem.setShaderTexture(0, identifier);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);

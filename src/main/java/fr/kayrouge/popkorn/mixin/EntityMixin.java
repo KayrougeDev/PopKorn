@@ -34,7 +34,7 @@ public class EntityMixin {
 						distance = blockPos.getY()-PopKornServerConfig.INSTANCE.elevatorMaxDistance.value();
 					}
 
-					for(int i = blockPos.getY()-1; i > Math.min(world.getBottomY()-1, distance); i--) {
+					for(int i = blockPos.getY()-1; i > Math.max(world.getBottomY()-1, distance); i--) {
 						BlockPos nextPos = blockPos.withY(i);
 						if(world.getBlockState(nextPos).getBlock() == PKBlocks.ELEVATOR) {
 							world.setBlockState(blockPos, PKBlocks.ELEVATOR.getDefaultState().with(Properties.POWERED, true).with(Properties.VERTICAL_DIRECTION, Direction.DOWN));

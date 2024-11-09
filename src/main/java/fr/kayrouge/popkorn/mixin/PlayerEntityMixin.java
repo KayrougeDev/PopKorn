@@ -35,7 +35,7 @@ public class PlayerEntityMixin {
 			boolean notInfinite = PopKornServerConfig.INSTANCE.elevatorMaxDistance.value() != 0;
 
 			if(notInfinite) {
-				distance = blockPos.getY()-PopKornServerConfig.INSTANCE.elevatorMaxDistance.value();
+				distance = blockPos.getY()+PopKornServerConfig.INSTANCE.elevatorMaxDistance.value();
 			}
 
 			for(int i = blockPos.getY()+1; i < Math.min(world.getHeight(), distance); i++) {
@@ -53,10 +53,5 @@ public class PlayerEntityMixin {
 				player.sendMessage(Text.translatable("block.popkorn.elevator.noblockinrange", PopKornServerConfig.INSTANCE.elevatorMaxDistance.value()), true);
 			}
 		}
-	}
-
-	@Inject(method = "openHandledScreen", at = @At("HEAD"))
-	public void openHandledScreen(NamedScreenHandlerFactory factory, CallbackInfoReturnable<OptionalInt> cir) {
-		PopKorn.LOGGER.info(factory.getDisplayName().getLiteralString());
 	}
 }

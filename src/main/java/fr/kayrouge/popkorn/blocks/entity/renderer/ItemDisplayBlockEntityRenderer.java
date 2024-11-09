@@ -3,7 +3,6 @@ package fr.kayrouge.popkorn.blocks.entity.renderer;
 import fr.kayrouge.popkorn.blocks.ItemDisplayBlock;
 import fr.kayrouge.popkorn.blocks.PKBlocks;
 import fr.kayrouge.popkorn.blocks.entity.ItemDisplayBlockEntity;
-import fr.kayrouge.popkorn.client.PopKornClient;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

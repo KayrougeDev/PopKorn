@@ -19,7 +19,7 @@ public class PKItems {
 	 * This constant is used for debugging purposes.
 	 */
 	@Deprecated
-	public static final RayLauncherItem RAY_LAUNCHER_ITEM = register(new RayLauncherItem(), "ray_launcher");
+	public static final RayLauncherItem RAY_LAUNCHER_ITEM = register("ray_launcher", new RayLauncherItem());
 
 	public static final Item CHAINSAW;
 	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
@@ -37,29 +37,29 @@ public class PKItems {
 
 
 	static {
-		CHAINSAW = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "chainsaw", ItemGroups.TOOLS_AND_UTILITIES);
+		CHAINSAW = register("chainsaw", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), ItemGroups.TOOLS_AND_UTILITIES);
 
-		SOLIDIFIED_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.RARE)), "solidified_demonic_energy", PKItemGroups.DEMONIC);
-		RAW_DEMONIC_ENERGY = register(new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), "raw_demonic_energy", PKItemGroups.DEMONIC);
+		SOLIDIFIED_DEMONIC_ENERGY = register("solidified_demonic_energy", new Item(new Item.Settings().rarity(Rarity.RARE)), PKItemGroups.DEMONIC);
+		RAW_DEMONIC_ENERGY = register("raw_demonic_energy", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), PKItemGroups.DEMONIC);
 
-		DEMONIC_HELMET = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.HELMET.getBaseDurability(40))), "demonic_helmet", PKItemGroups.DEMONIC);
-		DEMONIC_CHESTPLATE = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.CHESTPLATE.getBaseDurability(40))), "demonic_chestplate", PKItemGroups.DEMONIC);
-		DEMONIC_LEGGINGS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.LEGGINGS.getBaseDurability(40))), "demonic_leggings", PKItemGroups.DEMONIC);
-		DEMONIC_BOOTS = register(new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.BOOTS.getBaseDurability(40))), "demonic_boots", PKItemGroups.DEMONIC);
+		DEMONIC_HELMET = register("demonic_helmet", new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.HELMET.getBaseDurability(40))), PKItemGroups.DEMONIC);
+		DEMONIC_CHESTPLATE = register("demonic_chestplate", new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.CHESTPLATE.getBaseDurability(40))), PKItemGroups.DEMONIC);
+		DEMONIC_LEGGINGS = register("demonic_leggings", new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.LEGGINGS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.LEGGINGS.getBaseDurability(40))), PKItemGroups.DEMONIC);
+		DEMONIC_BOOTS = register("demonic_boots", new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.BOOTS, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.BOOTS.getBaseDurability(40))), PKItemGroups.DEMONIC);
 
-		ELEVATOR = register(new BlockItem(PKBlocks.ELEVATOR,  new Item.Settings().rarity(Rarity.RARE)), "elevator",ItemGroups.REDSTONE_BLOCKS);
-		TECHNOLOGY_CORE = register(new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), "technology_core", ItemGroups.REDSTONE_BLOCKS);
-		DEMONIC_ALTAR = register(new BlockItem(PKBlocks.DEMONIC_ALTAR, new Item.Settings().rarity(Rarity.EPIC).fireproof()), "demonic_altar", ItemGroups.FUNCTIONAL_BLOCKS);
-		ITEM_DISPLAY = register(new BlockItem(PKBlocks.ITEM_DISPLAY, new Item.Settings()), "item_display", ItemGroups.FUNCTIONAL_BLOCKS);
+		ELEVATOR = register("elevator", new BlockItem(PKBlocks.ELEVATOR,  new Item.Settings().rarity(Rarity.RARE)), ItemGroups.REDSTONE_BLOCKS);
+		TECHNOLOGY_CORE = register("technology_core", new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), ItemGroups.REDSTONE_BLOCKS);
+		DEMONIC_ALTAR = register("demonic_altar", new BlockItem(PKBlocks.DEMONIC_ALTAR, new Item.Settings().rarity(Rarity.EPIC).fireproof()), ItemGroups.FUNCTIONAL_BLOCKS);
+		ITEM_DISPLAY = register("item_display", new BlockItem(PKBlocks.ITEM_DISPLAY, new Item.Settings()), ItemGroups.FUNCTIONAL_BLOCKS);
 	}
 
-	public static <T extends Item> T register(T item, String name) {
+	public static <T extends Item> T register(String name, T item) {
 		Registry.register(Registries.ITEM, Identifier.of(PopKorn.MODID, name), item);
 		return item;
 	}
 
-	public static <T extends Item> T register(T item, String name, RegistryKey<ItemGroup> group) {
-		Registry.register(Registries.ITEM, Identifier.of(PopKorn.MODID, name), item);
+	public static <T extends Item> T register(String name, T item, RegistryKey<ItemGroup> group) {
+		register(name, item);
 		registerInItemGroup(group, item);
 		return item;
 	}

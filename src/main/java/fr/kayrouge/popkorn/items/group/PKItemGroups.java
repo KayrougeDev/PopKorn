@@ -1,10 +1,8 @@
 package fr.kayrouge.popkorn.items.group;
 
 import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.blocks.PKBlocks;
 import fr.kayrouge.popkorn.items.PKItems;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -12,8 +10,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.util.function.Supplier;
 
 public class PKItemGroups {
 

@@ -16,17 +16,17 @@ public class PKBlocks {
 	public static final ItemDisplayBlock ITEM_DISPLAY;
 
 	static {
-		ELEVATOR = register(new ElevatorBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL)), "elevator");
-		TECHNOLOGY_CORE = register(new TechnologyCoreBlock(AbstractBlock.Settings.copy(Blocks.HEAVY_CORE)), "technology_core");
-		DEMONIC_ALTAR = register(new DemonicAltarBlock(AbstractBlock.Settings.create()), "demonic_altar");
-		ITEM_DISPLAY = register(new ItemDisplayBlock(AbstractBlock.Settings.create()), "item_display");
+		ELEVATOR = register("elevator", new ElevatorBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL)));
+		TECHNOLOGY_CORE = register("technology_core", new TechnologyCoreBlock(AbstractBlock.Settings.copy(Blocks.HEAVY_CORE)));
+		DEMONIC_ALTAR = register("demonic_altar", new DemonicAltarBlock(AbstractBlock.Settings.create()));
+		ITEM_DISPLAY = register("item_display", new ItemDisplayBlock(AbstractBlock.Settings.create()));
 	}
 
 
 	public static void initialize() {
 	}
 
-	public static <T extends Block> T register(T block, String name) {
+	public static <T extends Block> T register(String name, T block) {
 		Registry.register(Registries.BLOCK, Identifier.of(PopKorn.MODID, name), block);
 		return block;
 	}

@@ -1,15 +1,13 @@
 package fr.kayrouge.popkorn.mixin.client;
 
-import fr.kayrouge.popkorn.PopKorn;
+import com.mojang.blaze3d.glfw.Window;
 import fr.kayrouge.popkorn.client.manager.ClientPlayerManager;
-import fr.kayrouge.popkorn.client.screen.PreTitleScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -41,6 +39,20 @@ public abstract class MinecraftClientMixin {
 	}*/
 
 
+	@Shadow
+	protected abstract String getWindowTitle();
+
+	@Shadow
+	@Final
+	private Window window;
+
+	@Shadow
+	@Nullable
+	public ClientPlayerEntity player;
+
+	@Shadow
+	public abstract Session getSession();
+
 	// Methode called when the player quit a server / world
 	@Inject(method = "method_18096", at = @At("HEAD"))
 	public void onDisconnected(Screen screen, boolean bl, CallbackInfo ci) {
@@ -49,5 +61,14 @@ public abstract class MinecraftClientMixin {
 		* will still show the abilities' icon
 		* */
 		ClientPlayerManager.clearAbilities();
+	}
+
+	/**
+	 * @author KayrougeDev
+	 * @reason Add player name in window title
+	 */
+	@Overwrite
+	public void updateWindowTitle() {
+		this.window.setTitle(getWindowTitle()+" | "+getSession().getUsername());
 	}
 }

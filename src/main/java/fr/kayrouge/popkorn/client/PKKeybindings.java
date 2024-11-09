@@ -1,8 +1,8 @@
 package fr.kayrouge.popkorn.client;
 
 import com.mojang.blaze3d.platform.InputUtil;
+import fr.kayrouge.popkorn.client.screen.ConfigScreen;
 import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
-import fr.kayrouge.popkorn.util.configs.PopKornClientConfig;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -32,22 +32,20 @@ public class PKKeybindings {
 		}
 	}
 
-
 	public static void registerAction() {
-
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while(DASH.wasPressed()) {
 				ClientPlayNetworking.send(new AbilitiesUseC2SPayload("dash"));
 			}
+
 			while(CHAINSAW.wasPressed()) {
 				ClientPlayNetworking.send(new AbilitiesUseC2SPayload("chainsaw"));
 			}
 
 			while (OPEN_CONFIG != null && OPEN_CONFIG.wasPressed()) {
-				MinecraftClient.getInstance().setScreen(PopKornClientConfig.INSTANCE.init(null));
+				MinecraftClient.getInstance().setScreen(new ConfigScreen(null));
 			}
 		});
-
 	}
 
 }
