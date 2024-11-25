@@ -1,9 +1,8 @@
 package fr.kayrouge.popkorn.screen.slot;
 
-import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.inventory.DemonicAltarInventory;
 import fr.kayrouge.popkorn.recipe.DemonicAltarRecipeInput;
-import fr.kayrouge.popkorn.recipe.PKRecipes;
+import fr.kayrouge.popkorn.registry.PKRecipes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

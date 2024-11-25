@@ -1,6 +1,8 @@
-package fr.kayrouge.popkorn.screen;
+package fr.kayrouge.popkorn.registry;
 
 import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.screen.DemonicAltarScreenHandler;
+import fr.kayrouge.popkorn.screen.ItemDisplayScreenHandler;
 import fr.kayrouge.popkorn.screen.data.ItemDisplayData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.feature_flags.FeatureFlagBitSet;

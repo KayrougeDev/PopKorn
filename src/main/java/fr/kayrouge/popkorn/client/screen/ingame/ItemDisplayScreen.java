@@ -36,7 +36,7 @@ public class ItemDisplayScreen extends HandledScreen<ItemDisplayScreenHandler> {
 		super.init();
 		this.addDrawableSelectableElement(ButtonWidget.builder(generateMessage("rotate", handler.getData().isRotate()), buttonWidget -> {
 			if(client == null) return;
-			if(client.player != null && ScreenUtil.canPlayerUseButton(client.player, handler.getData().getPos(), 1d)) {
+			if(client.player != null && ScreenUtil.canPlayerUseGuiButton(client.player, handler.getData().getPos(), 1d)) {
 				handler.getData().setRotate(!handler.getData().isRotate());
 				update();
 				buttonWidget.setMessage(generateMessage("rotate", handler.getData().isRotate()));
@@ -45,7 +45,7 @@ public class ItemDisplayScreen extends HandledScreen<ItemDisplayScreenHandler> {
 
 		this.addDrawableSelectableElement(ButtonWidget.builder(generateMessage("upAndDown", handler.getData().isUpAnDown()), buttonWidget -> {
 			if(client == null) return;
-			if(client.player != null && ScreenUtil.canPlayerUseButton(client.player, handler.getData().getPos(), 1d)) {
+			if(client.player != null && ScreenUtil.canPlayerUseGuiButton(client.player, handler.getData().getPos(), 1d)) {
 				handler.getData().setUpAnDown(!handler.getData().isUpAnDown());
 				update();
 				buttonWidget.setMessage(generateMessage("upAndDown", handler.getData().isUpAnDown()));

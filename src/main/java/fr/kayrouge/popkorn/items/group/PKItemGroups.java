@@ -1,7 +1,7 @@
 package fr.kayrouge.popkorn.items.group;
 
 import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.items.PKItems;
+import fr.kayrouge.popkorn.registry.PKItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;

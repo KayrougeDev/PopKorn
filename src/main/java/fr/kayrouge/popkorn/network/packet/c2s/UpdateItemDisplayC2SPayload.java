@@ -29,7 +29,7 @@ public record UpdateItemDisplayC2SPayload(BlockPos pos, boolean rotate, boolean 
 
 	public void receive(ServerPlayNetworking.Context context) {
 		context.server().execute(() -> {
-			if(ScreenUtil.canPlayerUseButton(context.player(), pos, 1d)) {
+			if(ScreenUtil.canPlayerUseGuiButton(context.player(), pos, 1d)) {
 				ServerWorld world = context.player().getServerWorld();
 
 				if(world.getBlockEntity(pos) instanceof ItemDisplayBlockEntity entity) {

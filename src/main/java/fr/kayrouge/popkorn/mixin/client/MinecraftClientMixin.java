@@ -4,9 +4,7 @@ import com.mojang.blaze3d.glfw.Window;
 import fr.kayrouge.popkorn.client.manager.ClientPlayerManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.Session;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,8 +34,8 @@ public abstract class MinecraftClientMixin {
 				ci.cancel();
 			}
 		}
-	}*/
-
+	}
+	*/
 
 	@Shadow
 	protected abstract String getWindowTitle();
@@ -47,20 +45,12 @@ public abstract class MinecraftClientMixin {
 	private Window window;
 
 	@Shadow
-	@Nullable
-	public ClientPlayerEntity player;
-
-	@Shadow
 	public abstract Session getSession();
 
 	// Methode called when the player quit a server / world
 	@Inject(method = "method_18096", at = @At("HEAD"))
 	public void onDisconnected(Screen screen, boolean bl, CallbackInfo ci) {
-		/*
-		* Add this because without it, if you join a server that doesn't PopKorn installed, it
-		* will still show the abilities' icon
-		* */
-		ClientPlayerManager.clearAbilities();
+
 	}
 
 	/**
@@ -70,5 +60,11 @@ public abstract class MinecraftClientMixin {
 	@Overwrite
 	public void updateWindowTitle() {
 		this.window.setTitle(getWindowTitle()+" | "+getSession().getUsername());
+	}
+
+	// Called when join / quit world
+	@Inject(method = "method_18096", at = @At("HEAD"))
+	public void joinWorld(Screen screen, boolean bl, CallbackInfo ci) {
+		ClientPlayerManager.reset();
 	}
 }

@@ -9,7 +9,6 @@ import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.collection.DefaultedList;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class DemonicAltarInventory implements Inventory, RecipeInputProvider {

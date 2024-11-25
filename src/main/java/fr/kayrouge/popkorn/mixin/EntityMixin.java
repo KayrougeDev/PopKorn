@@ -1,7 +1,7 @@
 package fr.kayrouge.popkorn.mixin;
 
 import fr.kayrouge.popkorn.blocks.ElevatorBlock;
-import fr.kayrouge.popkorn.blocks.PKBlocks;
+import fr.kayrouge.popkorn.registry.PKBlocks;
 import fr.kayrouge.popkorn.util.configs.PopKornServerConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

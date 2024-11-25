@@ -5,6 +5,7 @@ import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
 import fr.kayrouge.popkorn.network.packet.c2s.UpdateItemDisplayC2SPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseConfirmationS2CPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.PlayerAbilitiesUpdateS2CPayload;
+import fr.kayrouge.popkorn.network.packet.s2c.RayLauncherUseS2CPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -17,6 +18,7 @@ public class PKNetworkingConstants {
 
 	public static final Identifier ABILITIES_UPDATE_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_update");
 	public static final Identifier ABILITIES_USE_CONFIRMATION_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_update_confirmation");
+	public static final Identifier RAY_LAUNCHER_USE_PACKET_ID = Identifier.of(PopKorn.MODID, "ray_launcher_use");
 
 	public static void registerC2S() {
 		PayloadTypeRegistry.playC2S().register(AbilitiesUseC2SPayload.ID, AbilitiesUseC2SPayload.CODEC);
@@ -26,6 +28,7 @@ public class PKNetworkingConstants {
 	public static void registerS2C() {
 		PayloadTypeRegistry.playS2C().register(PlayerAbilitiesUpdateS2CPayload.ID, PlayerAbilitiesUpdateS2CPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(AbilitiesUseConfirmationS2CPayload.ID, AbilitiesUseConfirmationS2CPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(RayLauncherUseS2CPayload.ID, RayLauncherUseS2CPayload.CODEC);
 	}
 
 
@@ -37,6 +40,7 @@ public class PKNetworkingConstants {
 	public static void registerS2CGlobalReceiver() {
 		ClientPlayNetworking.registerGlobalReceiver(PlayerAbilitiesUpdateS2CPayload.ID, PlayerAbilitiesUpdateS2CPayload::receive);
 		ClientPlayNetworking.registerGlobalReceiver(AbilitiesUseConfirmationS2CPayload.ID, AbilitiesUseConfirmationS2CPayload::receive);
+		ClientPlayNetworking.registerGlobalReceiver(RayLauncherUseS2CPayload.ID, RayLauncherUseS2CPayload::receive);
 	}
 
 

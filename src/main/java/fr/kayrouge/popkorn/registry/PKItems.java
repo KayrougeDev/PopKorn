@@ -1,7 +1,7 @@
-package fr.kayrouge.popkorn.items;
+package fr.kayrouge.popkorn.registry;
 
 import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.blocks.PKBlocks;
+import fr.kayrouge.popkorn.items.RayLauncherItem;
 import fr.kayrouge.popkorn.debug.DebugItem;
 import fr.kayrouge.popkorn.items.armor.PKArmorMaterials;
 import fr.kayrouge.popkorn.items.group.PKItemGroups;
@@ -15,11 +15,7 @@ import net.minecraft.util.Rarity;
 
 public class PKItems {
 
-	/**
-	 * This constant is used for debugging purposes.
-	 */
-	@Deprecated
-	public static final RayLauncherItem RAY_LAUNCHER_ITEM = register("ray_launcher", new RayLauncherItem());
+	public static final RayLauncherItem RAY_LAUNCHER_ITEM;
 
 	public static final Item CHAINSAW;
 	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
@@ -34,9 +30,12 @@ public class PKItems {
 	public static final BlockItem TECHNOLOGY_CORE;
 	public static final BlockItem DEMONIC_ALTAR;
 	public static final BlockItem ITEM_DISPLAY;
+	public static final BlockItem CHUNK_RENDERER;
 
 
 	static {
+		RAY_LAUNCHER_ITEM = register("ray_launcher", new RayLauncherItem());
+
 		CHAINSAW = register("chainsaw", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), ItemGroups.TOOLS_AND_UTILITIES);
 
 		SOLIDIFIED_DEMONIC_ENERGY = register("solidified_demonic_energy", new Item(new Item.Settings().rarity(Rarity.RARE)), PKItemGroups.DEMONIC);
@@ -51,6 +50,7 @@ public class PKItems {
 		TECHNOLOGY_CORE = register("technology_core", new BlockItem(PKBlocks.TECHNOLOGY_CORE, new Item.Settings().rarity(Rarity.EPIC).maxCount(32)), ItemGroups.REDSTONE_BLOCKS);
 		DEMONIC_ALTAR = register("demonic_altar", new BlockItem(PKBlocks.DEMONIC_ALTAR, new Item.Settings().rarity(Rarity.EPIC).fireproof()), ItemGroups.FUNCTIONAL_BLOCKS);
 		ITEM_DISPLAY = register("item_display", new BlockItem(PKBlocks.ITEM_DISPLAY, new Item.Settings()), ItemGroups.FUNCTIONAL_BLOCKS);
+		CHUNK_RENDERER = register("chunk_renderer", new BlockItem(PKBlocks.CHUNK_RENDERER, new Item.Settings()));
 	}
 
 	public static <T extends Item> T register(String name, T item) {

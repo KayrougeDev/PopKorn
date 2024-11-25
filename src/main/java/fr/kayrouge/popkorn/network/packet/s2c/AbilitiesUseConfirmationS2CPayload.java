@@ -18,7 +18,7 @@ public record AbilitiesUseConfirmationS2CPayload(String ability) implements Cust
 
 	public void receive(ClientPlayNetworking.Context context) {
 		context.client().execute(() -> {
-			ClientPlayerManager.getAbility(ability).setUsed(true);
+			ClientPlayerManager.getInstance().getAbility(ability).setUsed(true);
 		});
 	}
 

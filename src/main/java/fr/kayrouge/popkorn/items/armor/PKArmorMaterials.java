@@ -1,7 +1,7 @@
 package fr.kayrouge.popkorn.items.armor;
 
 import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.items.PKItems;
+import fr.kayrouge.popkorn.registry.PKItems;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;

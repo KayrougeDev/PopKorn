@@ -44,5 +44,11 @@
   "option.popkorn.elevatormaxdistance": "Elevator maximum distance",
   "option.popkorn.elevatormaxdistance.tooltip": "The maximum distance an elevator can teleport the player (0 = infinite)",
 
-  "itemGroup.demonic": "Demonic"
+  "itemGroup.demonic": "Demonic",
+
+
+  "tag.item.popkorn.head_armor": "Armor Helmet",
+  "tag.item.popkorn.chest_armor": "Armor Chestplate",
+  "tag.item.popkorn.leg_armor": "Armor Leggings",
+  "tag.item.popkorn.foot_armor": "Armor Boots"
 }

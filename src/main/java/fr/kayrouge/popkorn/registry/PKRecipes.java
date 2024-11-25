@@ -1,6 +1,7 @@
-package fr.kayrouge.popkorn.recipe;
+package fr.kayrouge.popkorn.registry;
 
 import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.recipe.DemonicAltarRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;

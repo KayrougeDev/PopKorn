@@ -34,9 +34,9 @@ public class AbilitiesInGameHui {
 		matrices.push();
 		matrices.translate(startPos, iconHeight, -91f);
 
-		if(ClientPlayerManager.areAbilitiesAvailable()) {
-			renderIcon(graphics, -iconSize+(iconSize/4), 0, iconSize, 1.5f, 0,2.5f,-0.25F, "dash", ClientPlayerManager.getAbility("dash"));
-			renderIcon(graphics, iconSize+(iconSize/2), 0, iconSize, 0, 0, 0,0, "icon_edge",  ClientPlayerManager.getAbility("chainsaw"));
+		if(ClientPlayerManager.getInstance().areAbilitiesAvailable()) {
+			renderIcon(graphics, -iconSize+(iconSize/4), 0, iconSize, 1.5f, 0,2.5f,-0.25F, "dash", ClientPlayerManager.getInstance().getAbility("dash"));
+			renderIcon(graphics, iconSize+(iconSize/2), 0, iconSize, 0, 0, 0,0, "icon_edge",  ClientPlayerManager.getInstance().getAbility("chainsaw"));
 		}
 		else {
 			matrices.scale(0.75F, 0.75F, 1F);

@@ -2,6 +2,7 @@ package fr.kayrouge.popkorn.screen;
 
 import fr.kayrouge.popkorn.blocks.ItemDisplayBlock;
 import fr.kayrouge.popkorn.blocks.entity.ItemDisplayBlockEntity;
+import fr.kayrouge.popkorn.registry.PKHandledScreens;
 import fr.kayrouge.popkorn.screen.data.ItemDisplayData;
 import fr.kayrouge.popkorn.screen.slot.ItemDisplaySlot;
 import net.minecraft.block.BlockState;

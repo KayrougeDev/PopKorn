@@ -31,7 +31,7 @@ public class ItemDisplayBlock extends BlockWithEntity {
 	public static final BooleanProperty DISPLAY_ITEM;
 	public static final DirectionProperty FACING;
 
-	protected ItemDisplayBlock(Settings settings) {
+	public ItemDisplayBlock(Settings settings) {
 		super(settings);
 		this.setDefaultState(this.getStateManager().getDefaultState().with(DISPLAY_ITEM, true).with(FACING, Direction.NORTH));
 	}

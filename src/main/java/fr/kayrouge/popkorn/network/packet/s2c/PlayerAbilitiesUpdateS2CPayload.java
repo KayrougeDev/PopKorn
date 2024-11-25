@@ -22,7 +22,7 @@ public record PlayerAbilitiesUpdateS2CPayload(Map<String, Ability> abilities) im
 
 	public void receive(ClientPlayNetworking.Context context) {
 		context.client().execute(() -> {
-			ClientPlayerManager.setAbilities(abilities);
+			ClientPlayerManager.getInstance().setAbilities(abilities);
 //			for(Map.Entry<String, Ability> entry : abilities.entrySet()) {
 //				context.player().sendMessage(Text.literal(entry.getKey() + " " + entry.getValue().getRemainingCharges()), false);
 //			}

@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.blocks.entity;
 
+import fr.kayrouge.popkorn.registry.PKBlockEntityTypes;
 import fr.kayrouge.popkorn.screen.ItemDisplayScreenHandler;
 import fr.kayrouge.popkorn.screen.data.ItemDisplayData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;

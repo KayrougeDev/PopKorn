@@ -1,7 +1,7 @@
 package fr.kayrouge.popkorn.debug;
 
 import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.items.PKItems;
+import fr.kayrouge.popkorn.registry.PKItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipConfig;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,11 +1,12 @@
 package fr.kayrouge.popkorn.screen;
 
-import fr.kayrouge.popkorn.blocks.PKBlocks;
+import fr.kayrouge.popkorn.registry.PKBlocks;
 import fr.kayrouge.popkorn.inventory.DemonicAltarInventory;
 import fr.kayrouge.popkorn.inventory.DemonicAltarResultInventory;
 import fr.kayrouge.popkorn.recipe.DemonicAltarRecipe;
 import fr.kayrouge.popkorn.recipe.DemonicAltarRecipeInput;
-import fr.kayrouge.popkorn.recipe.PKRecipes;
+import fr.kayrouge.popkorn.registry.PKHandledScreens;
+import fr.kayrouge.popkorn.registry.PKRecipes;
 import fr.kayrouge.popkorn.screen.slot.DemonicAltarOutputSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

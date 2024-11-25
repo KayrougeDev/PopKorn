@@ -2,7 +2,7 @@ package fr.kayrouge.popkorn.mixin.client;
 
 import fr.kayrouge.popkorn.client.manager.ClientPlayerManager;
 import fr.kayrouge.popkorn.debug.AnimationTest;
-import fr.kayrouge.popkorn.items.PKItems;
+import fr.kayrouge.popkorn.registry.PKItems;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
@@ -34,9 +34,9 @@ public abstract class HeldItemRendererMixin {
 	// Method use to render first person held item (or hand)
 	@Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
 	public void renderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-		if(ClientPlayerManager.getAbility("chainsaw").isUsed()) {
+		if(ClientPlayerManager.getInstance().getAbility("chainsaw").isUsed()) {
 			progress++;
-			ClientPlayerManager.getAbility("chainsaw").setUsed(false);
+			ClientPlayerManager.getInstance().getAbility("chainsaw").setUsed(false);
 		}
 		if(progress > 0) {
 			matrices.push();

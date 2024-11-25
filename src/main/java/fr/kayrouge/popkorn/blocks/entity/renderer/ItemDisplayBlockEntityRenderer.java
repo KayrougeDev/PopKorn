@@ -1,7 +1,7 @@
 package fr.kayrouge.popkorn.blocks.entity.renderer;
 
 import fr.kayrouge.popkorn.blocks.ItemDisplayBlock;
-import fr.kayrouge.popkorn.blocks.PKBlocks;
+import fr.kayrouge.popkorn.registry.PKBlocks;
 import fr.kayrouge.popkorn.blocks.entity.ItemDisplayBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -33,7 +33,6 @@ public class ItemDisplayBlockEntityRenderer implements BlockEntityRenderer<ItemD
 	public void render(ItemDisplayBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if(blockEntity.getWorld().getBlockState(blockEntity.getPos()) == null || blockEntity.getWorld().getBlockState(blockEntity.getPos()).getBlock() != PKBlocks.ITEM_DISPLAY) return;
 		if(blockEntity.getInventory().isEmpty() || !blockEntity.getWorld().getBlockState(blockEntity.getPos()).get(ItemDisplayBlock.DISPLAY_ITEM)) return;
-
 
 		float rotation = 0f;
 

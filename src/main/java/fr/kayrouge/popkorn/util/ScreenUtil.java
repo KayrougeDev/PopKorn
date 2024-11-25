@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class ScreenUtil {
 
-	public static boolean canPlayerUseButton(PlayerEntity player, BlockPos pos, double additionalRange) {
+	public static boolean canPlayerUseGuiButton(PlayerEntity player, BlockPos pos, double additionalRange) {
 		return !player.isSpectator() && player.canInteractWithBlockAt(pos, additionalRange);
 	}
 

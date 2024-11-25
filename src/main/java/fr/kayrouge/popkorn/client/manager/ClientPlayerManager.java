@@ -10,15 +10,16 @@ import java.util.Map;
 @ClientOnly
 public class ClientPlayerManager {
 
-	private static final Map<String, Ability> ABILITY_MAP  = new HashMap<>();
+	private static ClientPlayerManager INSTANCE = new ClientPlayerManager();
 
+	private final Map<String, Ability> ABILITY_MAP  = new HashMap<>();
 
-	public static void setAbilities(Map<String, Ability> abilities) {
+	public void setAbilities(Map<String, Ability> abilities) {
 		ABILITY_MAP.clear();
 		ABILITY_MAP.putAll(abilities);
 	}
 
-	public static Ability getAbility(String name) {
+	public Ability getAbility(String name) {
 		if(ABILITY_MAP.containsKey(name)) {
 			return ABILITY_MAP.get(name);
 		}
@@ -30,11 +31,16 @@ public class ClientPlayerManager {
 		}
 	}
 
-	public static boolean areAbilitiesAvailable() {
+	public boolean areAbilitiesAvailable() {
 		return !ABILITY_MAP.isEmpty();
 	}
 
-	public static void clearAbilities() {
-		ABILITY_MAP.clear();
+	public static ClientPlayerManager getInstance() {
+		return INSTANCE;
+	}
+
+	public static ClientPlayerManager reset() {
+		INSTANCE = new ClientPlayerManager();
+		return INSTANCE;
 	}
 }

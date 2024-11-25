@@ -1,13 +1,17 @@
 package fr.kayrouge.popkorn.items;
 
-import fr.kayrouge.popkorn.debug.DebugItem;
+import fr.kayrouge.popkorn.network.packet.s2c.RayLauncherUseS2CPayload;
+import fr.kayrouge.popkorn.util.PlayerUtil;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -16,15 +20,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
-public class RayLauncherItem extends DebugItem {
+public class RayLauncherItem extends Item {
 
 	public RayLauncherItem() {
-		super(new Settings().maxCount(1).fireproof());
+		super(new Settings().maxDamage(27));
 	}
 
 	@Override
-	protected TypedActionResult<ItemStack> useImpl(World world, PlayerEntity user, Hand hand) {
-
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (!world.isClient) {
 			double range = 50.0D;
 
@@ -44,8 +47,20 @@ public class RayLauncherItem extends DebugItem {
 			));
 
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
-				drawParticleLine(MinecraftClient.getInstance().world, startPos, hitResult.getPos());
-				world.setBlockState(hitResult.getBlockPos(), Blocks.COBBLESTONE.getDefaultState());
+				//drawParticleLine(MinecraftClient.getInstance().world, startPos, hitResult.getPos());
+
+
+				if(world.getBlockState(hitResult.getBlockPos().up()).getBlock() == Blocks.AIR && world.getBlockState(hitResult.getBlockPos()).isLavaIgnitable()) {
+
+					PlayerUtil.getPlayerInRange(world, user).forEach(player -> {
+						if(player instanceof  ServerPlayerEntity) {
+							ServerPlayNetworking.send((ServerPlayerEntity)player, new RayLauncherUseS2CPayload(startPos.toVector3f(), hitResult.getPos().toVector3f()));
+						}
+					});
+
+					world.setBlockState(hitResult.getBlockPos().up(), Blocks.FIRE.getDefaultState());
+					user.getStackInHand(hand).damageEquipment(1, user, LivingEntity.getHand(hand));
+				}
 
 				return TypedActionResult.success(user.getStackInHand(hand), true);
 			}
