@@ -22,6 +22,8 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
 	private final ItemDisplayData itemDisplayData;
 	private final ScreenHandlerContext context;
 
+	public final PlayerInventory playerInventory;
+
 	public ItemDisplayScreenHandler(int syncId, PlayerInventory playerInventory, ItemDisplayData itemDisplayData) {
 		this(syncId, playerInventory, new SimpleInventory(1), itemDisplayData, ScreenHandlerContext.EMPTY);
 	}
@@ -32,6 +34,7 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
 		this.addSlot(new ItemDisplaySlot(inventory, 0, 5, 5, this));
 		this.itemDisplayData = itemDisplayData;
 		this.context = context;
+		this.playerInventory = playerInventory;
 
 		// The player inventory
 		int m;

@@ -12,13 +12,15 @@ import java.util.Map;
 
 public class PlayerManager {
 
-	private static final Map<ServerPlayerEntity, Map<String, Ability>> playerAbilities  = new HashMap<>();
+	private static final Map<ServerPlayerEntity,
+		Map<String, Ability>> playerAbilities  = new HashMap<>();
 
 	public static void initPlayerAbilities(ServerPlayerEntity player) {
 		Map<String, Ability> abilities = new HashMap<>();
 
 		abilities.put("dash", new DashAbility(2, 100, false));
 		abilities.put("chainsaw", new ChainsawAbility(1, 200, true));
+		abilities.put("test", new Ability(2, 60, false));
 
 		playerAbilities.put(player, abilities);
 	}

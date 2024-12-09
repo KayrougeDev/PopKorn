@@ -6,7 +6,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -21,25 +20,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.OptionalDouble;
-
 @ClientOnly
 @Mixin(PlayerEntityRenderer.class)
 public class PlayerEntityRendererMixin {
 
 	@Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("TAIL"))
 	public void render(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int i, CallbackInfo ci) {
-		RenderLayer renderLayer = RenderLayer.of("xray_lines",
-			VertexFormats.LINES, VertexFormat.DrawMode.LINES, 1536,
-			RenderLayer.MultiPhaseParameters.builder().shader(RenderPhase.LINES_SHADER).lineWidth(
-					new RenderPhase.LineWidth(OptionalDouble.of(5d)))
-				.layering(RenderPhase.NO_LAYERING).
-				transparency(RenderPhase.NO_TRANSPARENCY).
-				target(RenderPhase.MAIN_TARGET).writeMaskState(RenderPhase.ALL_MASK)
-				.cull(RenderPhase.DISABLE_CULLING)
-				.depthTest(RenderPhase.GREATER_THAN_DEPTH_TEST)
-				.build(false));
-
 			//renderLine(matrices, vertexConsumers, renderLayer);
 		}
 

@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.util;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
@@ -15,5 +16,10 @@ public class PlayerUtil {
 				source.getX(),
 				source.getY(),
 				source.getZ()) < (maxDistance * maxDistance)).toList();
+	}
+
+	// TODO Hide armor and held item
+	public static void totallyDisappear(LivingEntity entity, boolean b) {
+		entity.setInvisible(b);
 	}
 }

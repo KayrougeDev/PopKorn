@@ -32,7 +32,6 @@ public class ChunkRendererBlockEntityRenderer implements BlockEntityRenderer<Chu
 		// Configurer le mode de rendu
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest();
 		RenderSystem.lineWidth(2.0F); // Épaisseur des lignes
 
 		// Position des sommets d'un cube (exemple simplifié)
@@ -48,7 +47,6 @@ public class ChunkRendererBlockEntityRenderer implements BlockEntityRenderer<Chu
 			{0, 4}, {1, 5}, {2, 6}, {3, 7}  // Entre faces avant et arrière
 		};
 
-		// Couleur de la ligne (rouge avec transparence)
 		float r = 1.0F, g = 0.0F, b = 0.0F, a = 1.0F;
 
 		Matrix4f matrix = matrices.peek().getModel();

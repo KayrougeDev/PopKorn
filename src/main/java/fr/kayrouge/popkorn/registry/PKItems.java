@@ -1,11 +1,12 @@
 package fr.kayrouge.popkorn.registry;
 
 import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.items.EquippableItem;
 import fr.kayrouge.popkorn.items.RayLauncherItem;
-import fr.kayrouge.popkorn.debug.DebugItem;
 import fr.kayrouge.popkorn.items.armor.PKArmorMaterials;
 import fr.kayrouge.popkorn.items.group.PKItemGroups;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -20,6 +21,7 @@ public class PKItems {
 	public static final Item CHAINSAW;
 	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
 	public static final Item RAW_DEMONIC_ENERGY;
+	public static final Item LIGHT_GLASSES;
 
 	public static final ArmorItem DEMONIC_HELMET;
 	public static final ArmorItem DEMONIC_CHESTPLATE;
@@ -34,12 +36,14 @@ public class PKItems {
 
 
 	static {
-		RAY_LAUNCHER_ITEM = register("ray_launcher", new RayLauncherItem());
+		RAY_LAUNCHER_ITEM = register("ray_launcher", new RayLauncherItem(), ItemGroups.TOOLS_AND_UTILITIES);
 
 		CHAINSAW = register("chainsaw", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), ItemGroups.TOOLS_AND_UTILITIES);
 
 		SOLIDIFIED_DEMONIC_ENERGY = register("solidified_demonic_energy", new Item(new Item.Settings().rarity(Rarity.RARE)), PKItemGroups.DEMONIC);
 		RAW_DEMONIC_ENERGY = register("raw_demonic_energy", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), PKItemGroups.DEMONIC);
+
+		LIGHT_GLASSES = register("light_glasses", new EquippableItem(new Item.Settings().rarity(Rarity.UNCOMMON).maxCount(1), EquipmentSlot.HEAD), ItemGroups.TOOLS_AND_UTILITIES);
 
 		DEMONIC_HELMET = register("demonic_helmet", new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.HELMET, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.HELMET.getBaseDurability(40))), PKItemGroups.DEMONIC);
 		DEMONIC_CHESTPLATE = register("demonic_chestplate", new ArmorItem(PKArmorMaterials.DEMONIC, ArmorItem.ArmorSlot.CHESTPLATE, new Item.Settings().fireproof().maxDamage(ArmorItem.ArmorSlot.CHESTPLATE.getBaseDurability(40))), PKItemGroups.DEMONIC);
@@ -65,7 +69,6 @@ public class PKItems {
 	}
 
 	public static void registerInItemGroup(RegistryKey<ItemGroup> group, Item item) {
-		if(item instanceof DebugItem && !PopKorn.DEBUG) return;
 		ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.addItem(item));
 	}
 
