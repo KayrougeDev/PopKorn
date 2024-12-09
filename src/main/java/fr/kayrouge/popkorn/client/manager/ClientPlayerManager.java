@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.client.manager;
 
+import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.client.PopKornClient;
 import fr.kayrouge.popkorn.abilities.Ability;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
@@ -24,7 +25,7 @@ public class ClientPlayerManager {
 			return ABILITY_MAP.get(name);
 		}
 		else {
-			if(!ABILITY_MAP.isEmpty()) {
+			if(!ABILITY_MAP.isEmpty() && PopKorn.DEBUG) {
 				PopKornClient.LOGGER.warn("UNKNOW abilities '{}' used ! Return a placeholder one", name);
 			}
 			return new Ability(0, 0, false);

@@ -2,11 +2,8 @@ package fr.kayrouge.popkorn.network.packet.s2c;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import fr.kayrouge.popkorn.PopKorn;
-import fr.kayrouge.popkorn.client.PopKornClient;
 import fr.kayrouge.popkorn.client.renderer.PKRenderers;
 import fr.kayrouge.popkorn.network.packet.PKNetworkingConstants;
-import fr.kayrouge.popkorn.registry.PKItems;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
@@ -36,6 +33,7 @@ public record RayLauncherUseS2CPayload(Vector3f startPos, Vector3f endPos) imple
 	public void receive(ClientPlayNetworking.Context context) {
 		context.client().execute(() -> PKRenderers.INSTANCE.addRenderTask((matrices, provider, endTimeMillis) -> {
 			Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
+
 			float cameraX = (float) camera.getPos().x;
 			float cameraY = (float) camera.getPos().y;
 			float cameraZ = (float) camera.getPos().z;
@@ -54,6 +52,14 @@ public record RayLauncherUseS2CPayload(Vector3f startPos, Vector3f endPos) imple
 			float adjustedEndY = endY - cameraY;
 			float adjustedEndZ = endZ - cameraZ;
 
+			float q = adjustedEndX-adjustedStartX;
+			float r = adjustedEndY-adjustedStartY;
+			float s = adjustedEndZ-adjustedStartZ;
+			float t = (float) Math.sqrt(q * q + r * r + s * s);
+			q /= t;
+			r /= t;
+			s /= t;
+
 			matrices.push();
 			//matrices.translate(adjustedX, adjustedY, adjustedZ);
 
@@ -70,16 +76,15 @@ public record RayLauncherUseS2CPayload(Vector3f startPos, Vector3f endPos) imple
 
 			consumer.xyz(entry, adjustedStartX, adjustedStartY-0.5F, adjustedStartZ)
 				.color(1.F, 0f, 0f, 1f)
-				.normal(entry, 0.0F, 0.0F, 0.0F);
+				.normal(entry, q, r, s);
 
 			consumer.xyz(entry, adjustedEndX, adjustedEndY, adjustedEndZ)
 				.color(1.F, 0f, 0f, 1f)
-				.normal(entry, 0.0F, 0.0F, 0.0F);
+				.normal(entry, q, r, s);
 
 			RenderSystem.disableBlend();
 			RenderSystem.enableCull();
 			matrices.pop();
-
 		},625L));
 	}
 }

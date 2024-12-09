@@ -66,7 +66,7 @@ public class AbilitiesInGameHui {
 
 		boolean b1 = ability.getRemainingCharges() < ability.getMaxCharges() && ability.isAvailable();
 
-		if(ability.getMaxCharges() == 1 || b1) {
+		if(ability.getMaxCharges() == 1 || b1 || ability.getMaxCharges() == 0) {
 			graphics.getMatrices().translate(offsetX, offsetY, 0f);
 			graphics.drawGuiTexture(Identifier.of(PopKorn.MODID, "hud/abilities/"+name), x, y, size, size);
 		}

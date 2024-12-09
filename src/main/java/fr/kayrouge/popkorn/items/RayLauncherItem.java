@@ -5,12 +5,10 @@ import fr.kayrouge.popkorn.util.PlayerUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -54,6 +52,7 @@ public class RayLauncherItem extends Item {
 
 					PlayerUtil.getPlayerInRange(world, user).forEach(player -> {
 						if(player instanceof  ServerPlayerEntity) {
+							user.sendMessage(player.getName(), false);
 							ServerPlayNetworking.send((ServerPlayerEntity)player, new RayLauncherUseS2CPayload(startPos.toVector3f(), hitResult.getPos().toVector3f()));
 						}
 					});
@@ -67,18 +66,5 @@ public class RayLauncherItem extends Item {
 		}
 
 		return TypedActionResult.fail(user.getStackInHand(hand));
-	}
-
-	private void drawParticleLine(ClientWorld world, Vec3d start, Vec3d end) {
-		Vec3d direction = end.subtract(start);
-		double distance = direction.length();
-		Vec3d normalizedDirection = direction.normalize();
-
-		for (double d = 0; d < distance; d += 0.1) {
-			Vec3d particlePos = start.add(normalizedDirection.multiply(d));
-			world.addParticle(ParticleTypes.END_ROD,
-				particlePos.x, particlePos.y, particlePos.z,
-				0, 0, 0);
-		}
 	}
 }

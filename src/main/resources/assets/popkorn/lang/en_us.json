@@ -1,14 +1,31 @@
 {
-  "item.popkorn.ray_launcher": "Ray Launcher",
-  "debug.popkorn.item.tooltip": "[DEBUG ONLY]",
-  "debug.popkorn.disabled": "[Disabled]",
-  "debug.popkorn.item.disabled": "This content is for debug only and disabled !",
-  "debug.popkorn.screen.debug": "Debug mode is enabled !",
+  "item.minecraft.tipped_arrow.effect.shadow_walker": "Arrow of Shadow Walker",
+  "item.minecraft.tipped_arrow.effect.light_walker": "Arrow of Light Walker",
+  "item.minecraft.potion.effect.shadow_walker": "Potion of Shadow Walker",
+  "item.minecraft.splash_potion.effect.shadow_walker": "Splash Potion of Shadow Walker",
+  "item.minecraft.lingering_potion.effect.shadow_walker": "Lingering Potion of Shadow Walker",
+  "item.minecraft.potion.effect.light_walker": "Potion of Light Walker",
+  "item.minecraft.splash_potion.effect.light_walker": "Splash Potion of Light Walker",
+  "item.minecraft.lingering_potion.effect.light_walker": "Lingering Potion of Light Walker",
 
+  "effect.popkorn.shadow_walker": "Shadow Walker",
+
+  "item.popkorn.ray_launcher": "Ray Launcher",
+  "item.popkorn.light_glasses": "Light Glasses",
+  "item.popkorn.chainsaw": "Chainsaw",
+  "item.popkorn.solidified_demonic_energy": "Solidified Demonic Energy",
+  "item.popkorn.raw_demonic_energy": "Raw Demonic Energy",
+  "item.popkorn.demonic_helmet": "Demonic Helmet",
+  "item.popkorn.demonic_chestplate": "Demonic Chestplate",
+  "item.popkorn.demonic_leggings": "Demonic Leggings",
+  "item.popkorn.demonic_boots": "Demonic Boots",
+
+  "item.popkorn.disabled": "[Disabled]",
 
   "block.popkorn.elevator": "Elevator",
   "block.popkorn.elevator.noblockinrange": "No elevator find in range (%1$s blocks)",
   "block.popkorn.technology_core": "Technology Core",
+  "block.popkorn.demonic_altar": "Demonic Altar",
 
   "block.popkorn.item_display": "Item Display",
   "block.popkorn.item_display.notinrange": "This item display is too far",
@@ -45,7 +62,6 @@
   "option.popkorn.elevatormaxdistance.tooltip": "The maximum distance an elevator can teleport the player (0 = infinite)",
 
   "itemGroup.demonic": "Demonic",
-
 
   "tag.item.popkorn.head_armor": "Armor Helmet",
   "tag.item.popkorn.chest_armor": "Armor Chestplate",

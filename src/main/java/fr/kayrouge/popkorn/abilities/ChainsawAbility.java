@@ -1,6 +1,5 @@
 package fr.kayrouge.popkorn.abilities;
 
-import fr.kayrouge.popkorn.PopKorn;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
