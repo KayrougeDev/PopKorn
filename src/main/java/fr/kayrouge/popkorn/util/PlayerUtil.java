@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.util;
 
+import fr.kayrouge.popkorn.PopKorn;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
@@ -21,5 +22,25 @@ public class PlayerUtil {
 	// TODO Hide armor and held item
 	public static void totallyDisappear(LivingEntity entity, boolean b) {
 		entity.setInvisible(b);
+	}
+
+	private static boolean shouldDisplayInfo = true;
+
+	public static void displayInfo(String info) {
+		displayInfo(info, new Object());
+	}
+
+	public static void displayInfo(String info, Object... argument) {
+		if(shouldDisplayInfo) {
+			PopKorn.LOGGER.info(info, argument);
+		}
+	}
+
+	public static void startDisplayInfo() {
+		shouldDisplayInfo = true;
+	}
+
+	public static void endDisplayInfo() {
+		shouldDisplayInfo = false;
 	}
 }

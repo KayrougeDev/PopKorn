@@ -6,33 +6,33 @@ import fr.kayrouge.popkorn.items.RayLauncherItem;
 import fr.kayrouge.popkorn.items.armor.PKArmorMaterials;
 import fr.kayrouge.popkorn.items.group.PKItemGroups;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
 public class PKItems {
 
-	public static final RayLauncherItem RAY_LAUNCHER_ITEM;
+	public static final Item RAY_LAUNCHER_ITEM;
 
 	public static final Item CHAINSAW;
 	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
 	public static final Item RAW_DEMONIC_ENERGY;
 	public static final Item LIGHT_GLASSES;
 
-	public static final ArmorItem DEMONIC_HELMET;
-	public static final ArmorItem DEMONIC_CHESTPLATE;
-	public static final ArmorItem DEMONIC_LEGGINGS;
-	public static final ArmorItem DEMONIC_BOOTS;
+	public static final Item DEMONIC_HELMET;
+	public static final Item DEMONIC_CHESTPLATE;
+	public static final Item DEMONIC_LEGGINGS;
+	public static final Item DEMONIC_BOOTS;
 
-	public static final BlockItem ELEVATOR;
-	public static final BlockItem TECHNOLOGY_CORE;
-	public static final BlockItem DEMONIC_ALTAR;
-	public static final BlockItem ITEM_DISPLAY;
-	public static final BlockItem CHUNK_RENDERER;
+	public static final Item ELEVATOR;
+	public static final Item TECHNOLOGY_CORE;
+	public static final Item DEMONIC_ALTAR;
+	public static final Item ITEM_DISPLAY;
+	public static final Item CHUNK_RENDERER;
+	public static final Item GHOST_BLOCK;
 
 
 	static {
@@ -55,15 +55,19 @@ public class PKItems {
 		DEMONIC_ALTAR = register("demonic_altar", new BlockItem(PKBlocks.DEMONIC_ALTAR, new Item.Settings().rarity(Rarity.EPIC).fireproof()), ItemGroups.FUNCTIONAL_BLOCKS);
 		ITEM_DISPLAY = register("item_display", new BlockItem(PKBlocks.ITEM_DISPLAY, new Item.Settings()), ItemGroups.FUNCTIONAL_BLOCKS);
 		CHUNK_RENDERER = register("chunk_renderer", new BlockItem(PKBlocks.CHUNK_RENDERER, new Item.Settings()));
+		GHOST_BLOCK = register("ghost_block", new BlockItem(PKBlocks.GHOST_BLOCK, new Item.Settings()));
 	}
 
-	public static <T extends Item> T register(String name, T item) {
-		Registry.register(Registries.ITEM, Identifier.of(PopKorn.MODID, name), item);
-		return item;
+	public static Item register(Block block) {
+		return Items.register(block);
 	}
 
-	public static <T extends Item> T register(String name, T item, RegistryKey<ItemGroup> group) {
-		register(name, item);
+	public static Item register(String id, Item item) {
+		return Items.register(Identifier.of(PopKorn.MODID, id), item);
+	}
+
+	public static Item register(String name, Item item, RegistryKey<ItemGroup> group) {
+		item = register(name, item);
 		registerInItemGroup(group, item);
 		return item;
 	}

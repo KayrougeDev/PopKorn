@@ -1,9 +1,9 @@
 package fr.kayrouge.popkorn.blocks;
 
 import com.mojang.serialization.MapCodec;
-import fr.kayrouge.popkorn.PopKorn;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -14,6 +14,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 
 public class ElevatorBlock extends Block {
 
@@ -77,6 +78,11 @@ public class ElevatorBlock extends Block {
 		else {
 			return 0;
 		}
+	}
+
+	@Override
+	public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
+		return this.getDefaultState();
 	}
 
 	static {

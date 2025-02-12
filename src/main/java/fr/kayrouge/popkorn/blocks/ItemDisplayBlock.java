@@ -3,10 +3,7 @@ package fr.kayrouge.popkorn.blocks;
 import com.mojang.serialization.MapCodec;
 import fr.kayrouge.popkorn.blocks.entity.ItemDisplayBlockEntity;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
@@ -28,17 +25,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class ItemDisplayBlock extends BlockWithEntity {
 
+	public static final MapCodec<ItemDisplayBlock> CODEC = createCodec(ItemDisplayBlock::new);
+
 	public static final BooleanProperty DISPLAY_ITEM;
 	public static final DirectionProperty FACING;
 
 	public ItemDisplayBlock(Settings settings) {
 		super(settings);
-		this.setDefaultState(this.getStateManager().getDefaultState().with(DISPLAY_ITEM, true).with(FACING, Direction.NORTH));
+		this.setDefaultState(this.stateManager.getDefaultState().with(DISPLAY_ITEM, true).with(FACING, Direction.NORTH));
 	}
 
 	@Override
 	protected MapCodec<? extends BlockWithEntity> getCodec() {
-		return createCodec(ItemDisplayBlock::new);
+		return CODEC;
 	}
 
 	@Override

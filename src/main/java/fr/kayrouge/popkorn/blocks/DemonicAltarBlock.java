@@ -19,6 +19,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class DemonicAltarBlock extends BlockWithEntity {
 
+	public static final MapCodec<DemonicAltarBlock> CODEC = createCodec(DemonicAltarBlock::new);
+
 	public DemonicAltarBlock(Settings settings) {
 		super(settings);
 	}
@@ -27,7 +29,7 @@ public class DemonicAltarBlock extends BlockWithEntity {
 
 	@Override
 	protected MapCodec<? extends BlockWithEntity> getCodec() {
-		return createCodec(DemonicAltarBlock::new);
+		return CODEC;
 	}
 
 	@Override

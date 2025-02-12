@@ -15,6 +15,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.payload.CustomPayload;
 import org.joml.Vector3f;
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 public record RayLauncherUseS2CPayload(Vector3f startPos, Vector3f endPos) implements CustomPayload {
 
@@ -30,8 +31,9 @@ public record RayLauncherUseS2CPayload(Vector3f startPos, Vector3f endPos) imple
 		return ID;
 	}
 
+	@ClientOnly
 	public void receive(ClientPlayNetworking.Context context) {
-		context.client().execute(() -> PKRenderers.INSTANCE.addRenderTask((matrices, provider, endTimeMillis) -> {
+		PKRenderers.INSTANCE.addRenderTask((matrices, provider, endTimeMillis) -> {
 			Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
 
 			float cameraX = (float) camera.getPos().x;
@@ -85,6 +87,6 @@ public record RayLauncherUseS2CPayload(Vector3f startPos, Vector3f endPos) imple
 			RenderSystem.disableBlend();
 			RenderSystem.enableCull();
 			matrices.pop();
-		},625L));
+		},625L);
 	}
 }

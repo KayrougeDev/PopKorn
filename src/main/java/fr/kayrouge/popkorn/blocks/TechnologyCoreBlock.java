@@ -20,7 +20,7 @@ public class TechnologyCoreBlock extends Block implements Waterloggable {
 	public static final MapCodec<TechnologyCoreBlock> CODEC = createCodec(TechnologyCoreBlock::new);
 	private static final VoxelShape SHAPE = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 8.0, 12.0);
 
-	public TechnologyCoreBlock(Settings settings) {
+	public TechnologyCoreBlock(AbstractBlock.Settings settings) {
 		super(settings);
 		this.setDefaultState(this.stateManager.getDefaultState().with(Properties.WATERLOGGED, false));
 	}

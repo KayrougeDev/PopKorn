@@ -11,11 +11,12 @@ import net.minecraft.util.Identifier;
 
 public class PKBlocks {
 
-	public static final ElevatorBlock ELEVATOR;
-	public static final TechnologyCoreBlock TECHNOLOGY_CORE;
-	public static final DemonicAltarBlock DEMONIC_ALTAR;
-	public static final ItemDisplayBlock ITEM_DISPLAY;
-	public static final ChunkRendererBlock CHUNK_RENDERER;
+	public static final Block ELEVATOR;
+	public static final Block TECHNOLOGY_CORE;
+	public static final Block DEMONIC_ALTAR;
+	public static final Block ITEM_DISPLAY;
+	public static final Block CHUNK_RENDERER;
+	public static final Block GHOST_BLOCK;
 
 	static {
 		ELEVATOR = register("elevator", new ElevatorBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL)));
@@ -23,14 +24,14 @@ public class PKBlocks {
 		DEMONIC_ALTAR = register("demonic_altar", new DemonicAltarBlock(AbstractBlock.Settings.create()));
 		ITEM_DISPLAY = register("item_display", new ItemDisplayBlock(AbstractBlock.Settings.create()));
 		CHUNK_RENDERER = register("chunk_renderer", new ChunkRendererBlock(AbstractBlock.Settings.create()));
+		GHOST_BLOCK = register("ghost_block", new GhostBlock(AbstractBlock.Settings.create()));
 	}
 
 
 	public static void initialize() {
 	}
 
-	public static <T extends Block> T register(String name, T block) {
-		Registry.register(Registries.BLOCK, Identifier.of(PopKorn.MODID, name), block);
-		return block;
+	public static Block register(String name, Block block) {
+		return Registry.register(Registries.BLOCK, Identifier.of(PopKorn.MODID, name), block);
 	}
 }

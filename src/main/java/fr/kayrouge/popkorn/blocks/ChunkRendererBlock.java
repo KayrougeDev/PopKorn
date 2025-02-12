@@ -12,13 +12,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class ChunkRendererBlock extends BlockWithEntity {
 
+	public static final MapCodec<ChunkRendererBlock> CODEC = createCodec(ChunkRendererBlock::new);
+
 	public ChunkRendererBlock(Settings settings) {
 		super(settings.noCollision().solid());
 	}
 
 	@Override
-	protected MapCodec<? extends BlockWithEntity> getCodec() {
-		return createCodec(ChunkRendererBlock::new);
+	protected MapCodec<? extends ChunkRendererBlock> getCodec() {
+		return CODEC;
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class ChunkRendererBlock extends BlockWithEntity {
 	}
 
 	@Override
-	protected BlockRenderType getRenderType(BlockState state) {
+	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.INVISIBLE;
 	}
 

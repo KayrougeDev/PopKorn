@@ -1,10 +1,13 @@
 package fr.kayrouge.popkorn.util.configs;
 
 import fr.kayrouge.popkorn.PopKorn;
+import org.quiltmc.loader.api.minecraft.ClientOnly;
+
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.gui.screen.Screen;
+
 import net.minecraft.text.Text;
 import org.quiltmc.config.api.ReflectiveConfig;
 import org.quiltmc.config.api.annotations.SerializedName;
@@ -18,6 +21,10 @@ public class PopKornServerConfig extends ReflectiveConfig {
 	@SerializedName("elevator_max_distance")
 	public final TrackedValue<Integer> elevatorMaxDistance = this.value(0);
 
+	@SerializedName("are_ghost_block_opaque")
+	public final TrackedValue<Boolean> areGhostBlockOpaque = this.value(true);
+
+	@ClientOnly
 	public Screen init(Screen parent) {
 		ConfigBuilder builder = ConfigBuilder.create()
 			.setParentScreen(parent)
@@ -30,6 +37,12 @@ public class PopKornServerConfig extends ReflectiveConfig {
 			.setDefaultValue(this.elevatorMaxDistance.getDefaultValue())
 			.setTooltip(Text.translatable("option.popkorn.elevatormaxdistance.tooltip"))
 			.setSaveConsumer(elevatorMaxDistance::setValue)
+			.build());
+
+		block.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.popkorn.areghostblockopaque"), areGhostBlockOpaque.value())
+			.setDefaultValue(this.areGhostBlockOpaque.getDefaultValue())
+			.setTooltip(Text.translatable("option.popkorn.areghostblockopaque.tooltip"))
+			.setSaveConsumer(this.areGhostBlockOpaque::setValue)
 			.build());
 
 		return builder.build();

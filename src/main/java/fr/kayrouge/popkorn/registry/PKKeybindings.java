@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputUtil;
 import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.client.screen.ConfigScreen;
 import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
+import fr.kayrouge.popkorn.util.PlayerUtil;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -62,6 +63,7 @@ public class PKKeybindings {
 		if(TEST != null) {
 			ClientTickEvents.END_CLIENT_TICK.register(client -> {
 				while (TEST.wasPressed()) {
+					PlayerUtil.startDisplayInfo();
 				}
 			});
 		}
