@@ -3,9 +3,7 @@ package fr.kayrouge.popkorn.blocks.entity.renderer;
 import fr.kayrouge.popkorn.blocks.entity.GhostBlockEntity;
 import fr.kayrouge.popkorn.registry.PKBlocks;
 import fr.kayrouge.popkorn.registry.PKItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.biome.BiomeColorProvider;
@@ -34,29 +32,38 @@ public class GhostBlockEntityRenderer implements BlockEntityRenderer<GhostBlockE
 	}
 
 	@Override
-	public void render(GhostBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		GhostBlockRenderView blockRenderView = new GhostBlockRenderView(blockEntity.getWorld(), light);
+	public void render(GhostBlockEntity ghostBlockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+		GhostBlockRenderView blockRenderView = new GhostBlockRenderView(ghostBlockEntity.getWorld(), light);
 
-		Block block = blockEntity.getBlockToDisplay();
-		BlockState blockState;
+		Block blockToDisplay = ghostBlockEntity.getBlockToDisplay();
+
+		BlockState blockStateToDisplay;
 		assert MinecraftClient.getInstance().player != null;
 		if(MinecraftClient.getInstance().player.getInventory().getArmorStack(3).getItem() == PKItems.LIGHT_GLASSES
-			|| block.getDefaultState().getRenderType() == BlockRenderType.INVISIBLE) {
-			blockState = PKBlocks.GHOST_BLOCK.getDefaultState();
-		}
-		else {
-			blockState = block.getDefaultState();
-			if(blockState.getProperties().contains(Properties.AXIS)) {
-				blockState = blockState.with(Properties.AXIS, blockEntity.getCachedState().get(Properties.FACING).getAxis());
-			}
-
-			if(blockState.getProperties().contains(Properties.FACING)) {
-				blockState = blockState.with(Properties.FACING, blockEntity.getCachedState().get(Properties.FACING));
-			}
+			|| blockToDisplay.getDefaultState().getRenderType() == BlockRenderType.INVISIBLE) {
+			blockToDisplay = PKBlocks.GHOST_BLOCK;
 		}
 
-		MinecraftClient.getInstance().getBlockRenderManager().renderBlock(blockState, blockEntity.getPos(),
-			blockRenderView, matrices, vertexConsumers.getBuffer(RenderLayer.getBlockLayers().getLast()), true, RandomGenerator.createLegacy());
+		blockStateToDisplay = blockToDisplay.getDefaultState();
+
+		if(blockStateToDisplay.getProperties().contains(Properties.FACING)) {
+			blockStateToDisplay = blockStateToDisplay.with(Properties.FACING, ghostBlockEntity.getCachedState().get(Properties.FACING));
+		}
+
+		if(blockStateToDisplay.getProperties().contains(Properties.AXIS)) {
+			blockStateToDisplay = blockStateToDisplay.with(Properties.AXIS, ghostBlockEntity.getCachedState().get(Properties.FACING).getAxis());
+		}
+
+		if (blockStateToDisplay.getRenderType() != BlockRenderType.INVISIBLE) {
+			this.context.getRenderManager().renderBlock(blockStateToDisplay, ghostBlockEntity.getPos(),
+				blockRenderView, matrices, vertexConsumers.getBuffer(RenderLayer.getBlockLayers().getLast()), true, RandomGenerator.createLegacy());
+		}
+
+		if(blockToDisplay instanceof BlockWithEntity blockWithEntity) {
+			BlockEntity blockEntityToDisplay = blockWithEntity.createBlockEntity(ghostBlockEntity.getPos(), blockStateToDisplay);
+			blockEntityToDisplay.setWorld(ghostBlockEntity.getWorld());
+			this.context.getRenderDispatcher().get(blockEntityToDisplay).render(blockEntityToDisplay, tickDelta, matrices, vertexConsumers, light, overlay);
+		}
 	}
 
 	private record GhostBlockRenderView(World world, float brightness) implements BlockRenderView {

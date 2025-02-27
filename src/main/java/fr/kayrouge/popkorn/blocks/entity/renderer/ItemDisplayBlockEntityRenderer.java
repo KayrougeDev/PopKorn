@@ -16,6 +16,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 import java.awt.*;
@@ -31,8 +32,11 @@ public class ItemDisplayBlockEntityRenderer implements BlockEntityRenderer<ItemD
 
 	@Override
 	public void render(ItemDisplayBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		if(blockEntity.getWorld().getBlockState(blockEntity.getPos()) == null || blockEntity.getWorld().getBlockState(blockEntity.getPos()).getBlock() != PKBlocks.ITEM_DISPLAY) return;
-		if(blockEntity.getInventory().isEmpty() || !blockEntity.getWorld().getBlockState(blockEntity.getPos()).get(ItemDisplayBlock.DISPLAY_ITEM)) return;
+		World world = blockEntity.getWorld();
+		if(world == null) return;
+		if(world.getBlockState(blockEntity.getPos()) == null) return;
+		if(world.getBlockState(blockEntity.getPos()).getBlock() != PKBlocks.ITEM_DISPLAY) return;
+		if(blockEntity.getInventory().isEmpty() || !world.getBlockState(blockEntity.getPos()).get(ItemDisplayBlock.DISPLAY_ITEM)) return;
 
 		float rotation = 0f;
 

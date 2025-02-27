@@ -18,6 +18,9 @@ public class PopKornClientConfig extends ReflectiveConfig {
 	@SerializedName("draw_unable_to_recover_abilities_data_string")
 	public final TrackedValue<Boolean> drawUnableToRecoverAbilitiesDataString = this.value(true);
 
+	@SerializedName("draw_abilities_disabled_string")
+	public final TrackedValue<Boolean> drawAbilitiesDisabledString = this.value(true);
+
 	public Screen init(Screen parent) {
 		ConfigBuilder builder = ConfigBuilder.create()
 			.setParentScreen(parent)
@@ -30,6 +33,12 @@ public class PopKornClientConfig extends ReflectiveConfig {
 			.setDefaultValue(this.drawUnableToRecoverAbilitiesDataString.getDefaultValue())
 			.setTooltip(Text.translatable("option.popkorn.warncantquerryabilitiesdata.tooltip"))
 			.setSaveConsumer(drawUnableToRecoverAbilitiesDataString::setValue)
+			.build());
+
+		hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.popkorn.warnabilitiesdisabled"), drawAbilitiesDisabledString.value())
+			.setDefaultValue(this.drawAbilitiesDisabledString.getDefaultValue())
+			.setTooltip(Text.translatable("option.popkorn.warnabilitiesdisabled.tooltip"))
+			.setSaveConsumer(drawAbilitiesDisabledString::setValue)
 			.build());
 
 		return builder.build();

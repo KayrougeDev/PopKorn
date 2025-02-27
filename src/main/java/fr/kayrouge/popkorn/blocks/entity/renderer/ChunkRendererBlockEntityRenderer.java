@@ -29,10 +29,9 @@ public class ChunkRendererBlockEntityRenderer implements BlockEntityRenderer<Chu
 	public void renderWireframe(MatrixStack matrices, VertexConsumerProvider vertexConsumers) {
 		VertexConsumer vertex = vertexConsumers.getBuffer(RenderLayer.LINES);
 
-		// Configurer le mode de rendu
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.lineWidth(2.0F); // Épaisseur des lignes
+		RenderSystem.lineWidth(2.0F);
 
 		// Position des sommets d'un cube (exemple simplifié)
 		float[][] vertices = {

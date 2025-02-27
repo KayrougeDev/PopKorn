@@ -1,7 +1,6 @@
 package fr.kayrouge.popkorn.blocks;
 
 import com.mojang.serialization.MapCodec;
-import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.blocks.entity.GhostBlockEntity;
 import fr.kayrouge.popkorn.registry.PKBlocks;
 import net.minecraft.block.*;
@@ -34,23 +33,26 @@ public class GhostBlock extends BlockWithEntity {
 
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-		Direction direction = state.get(FACING);
-		BlockPos originalPos = pos.offset(direction);
-		Block originalBlock = world.getBlockState(originalPos).getBlock();
-		if(originalBlock == Blocks.AIR) {
-			originalBlock = Blocks.STONE;
-		}
-		else if(originalBlock == PKBlocks.GHOST_BLOCK
-					&& world.getBlockEntity(originalPos) instanceof GhostBlockEntity originalEntity) {
-			originalBlock = originalEntity.getBlockToDisplay();
-		}
+		if(!world.isClient) {
+			Direction direction = state.get(FACING);
+			BlockPos originalPos = pos.offset(direction);
+			Block originalBlock = world.getBlockState(originalPos).getBlock();
+			if(originalBlock == Blocks.AIR) {
+				originalBlock = Blocks.STONE;
+			}
+			else if(originalBlock == PKBlocks.GHOST_BLOCK
+				&& world.getBlockEntity(originalPos) instanceof GhostBlockEntity originalEntity) {
+				originalBlock = originalEntity.getBlockToDisplay();
+			}
 
-		PopKorn.LOGGER.info(originalBlock.getTranslationKey());
 
-
-		if(world.getBlockEntity(pos) instanceof GhostBlockEntity entity) {
-			entity.setBlockToDisplay(originalBlock);
-			entity.markDirty();
+			if(world.getBlockEntity(pos) instanceof GhostBlockEntity entity) {
+				entity.setBlockToDisplay(originalBlock);
+				if(entity.getWorld() == null) {
+					return;
+				}
+				entity.markDirty();
+			}
 		}
 	}
 

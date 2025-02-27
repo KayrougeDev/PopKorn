@@ -24,6 +24,9 @@ public class PopKornServerConfig extends ReflectiveConfig {
 	@SerializedName("are_ghost_block_opaque")
 	public final TrackedValue<Boolean> areGhostBlockOpaque = this.value(true);
 
+	@SerializedName("disable_abilities")
+	public final TrackedValue<Boolean> disableAbilities = this.value(false);
+
 	@ClientOnly
 	public Screen init(Screen parent) {
 		ConfigBuilder builder = ConfigBuilder.create()
@@ -43,6 +46,12 @@ public class PopKornServerConfig extends ReflectiveConfig {
 			.setDefaultValue(this.areGhostBlockOpaque.getDefaultValue())
 			.setTooltip(Text.translatable("option.popkorn.areghostblockopaque.tooltip"))
 			.setSaveConsumer(this.areGhostBlockOpaque::setValue)
+			.build());
+
+		block.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.popkorn.disableAbilities"), disableAbilities.value())
+			.setDefaultValue(this.disableAbilities.getDefaultValue())
+			.setTooltip(Text.translatable("option.popkorn.disableAbilities.tooltip"))
+			.setSaveConsumer(this.disableAbilities::setValue)
 			.build());
 
 		return builder.build();

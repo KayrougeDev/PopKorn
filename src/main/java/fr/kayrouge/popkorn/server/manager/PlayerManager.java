@@ -1,9 +1,10 @@
 package fr.kayrouge.popkorn.server.manager;
 
-import fr.kayrouge.popkorn.network.packet.s2c.PlayerAbilitiesUpdateS2CPayload;
-import fr.kayrouge.popkorn.abilities.Ability;
 import fr.kayrouge.popkorn.abilities.ChainsawAbility;
 import fr.kayrouge.popkorn.abilities.DashAbility;
+import fr.kayrouge.popkorn.network.packet.s2c.PlayerAbilitiesUpdateS2CPayload;
+import fr.kayrouge.popkorn.abilities.Ability;
+import fr.kayrouge.popkorn.util.configs.PopKornServerConfig;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -17,10 +18,15 @@ public class PlayerManager {
 
 	public static void initPlayerAbilities(ServerPlayerEntity player) {
 		Map<String, Ability> abilities = new HashMap<>();
+		if(PopKornServerConfig.INSTANCE.disableAbilities.value()) {
+			abilities.put("disabled", Ability.USELESS);}
+		else {
 
-		abilities.put("dash", new DashAbility(2, 100, false));
-		abilities.put("chainsaw", new ChainsawAbility(1, 200, true));
-		abilities.put("test", new Ability(2, 60, false));
+			abilities.put("dash", new DashAbility(2, 100, false));
+			abilities.put("chainsaw", new ChainsawAbility(1, 200, true));
+			abilities.put("test", new Ability(2, 60, false));
+		}
+
 
 		playerAbilities.put(player, abilities);
 	}

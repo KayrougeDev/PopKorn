@@ -1,13 +1,10 @@
 package fr.kayrouge.popkorn;
 
-import fr.kayrouge.popkorn.registry.PKBlocks;
-import fr.kayrouge.popkorn.registry.PKBlockEntityTypes;
+import fr.kayrouge.popkorn.registry.*;
 import fr.kayrouge.popkorn.items.group.PKItemGroups;
-import fr.kayrouge.popkorn.registry.PKHandledScreens;
 import fr.kayrouge.popkorn.network.packet.PKNetworkingConstants;
-import fr.kayrouge.popkorn.registry.PKItems;
-import fr.kayrouge.popkorn.registry.PKRecipes;
 import fr.kayrouge.popkorn.registry.potion.PKPotions;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.slf4j.Logger;
@@ -33,5 +30,9 @@ public class PopKorn implements ModInitializer {
 		PKNetworkingConstants.registerC2S();
 		PKNetworkingConstants.registerS2C();
 		PKNetworkingConstants.registerC2SGlobalReceiver();
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			PKCommands.register(dispatcher);
+		});
 	}
 }

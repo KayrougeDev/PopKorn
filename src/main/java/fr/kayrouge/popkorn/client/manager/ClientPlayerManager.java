@@ -28,12 +28,22 @@ public class ClientPlayerManager {
 			if(!ABILITY_MAP.isEmpty() && PopKorn.DEBUG) {
 				PopKornClient.LOGGER.warn("UNKNOW abilities '{}' used ! Return a placeholder one", name);
 			}
-			return new Ability(0, 0, false);
+			return Ability.USELESS;
 		}
 	}
 
 	public boolean areAbilitiesAvailable() {
-		return !ABILITY_MAP.isEmpty();
+		return getAbilitiesState().isAvailable;
+	}
+
+	public AbilitiesState getAbilitiesState() {
+		if(ABILITY_MAP.isEmpty()) {
+			return AbilitiesState.CANTBELOADED;
+		} else if (ABILITY_MAP.size() == 1 && ABILITY_MAP.containsKey("disabled")) {
+			return AbilitiesState.DISABLED;
+		} else {
+			return AbilitiesState.NORMAL;
+		}
 	}
 
 	public static ClientPlayerManager getInstance() {
@@ -43,5 +53,22 @@ public class ClientPlayerManager {
 	public static ClientPlayerManager reset() {
 		INSTANCE = new ClientPlayerManager();
 		return INSTANCE;
+	}
+
+	public enum AbilitiesState {
+
+		NORMAL(true),
+		DISABLED(false),
+		CANTBELOADED(false);
+
+		boolean isAvailable;
+
+		AbilitiesState(boolean available) {
+			this.isAvailable = available;
+		}
+
+		public boolean isAvailable() {
+			return isAvailable;
+		}
 	}
 }

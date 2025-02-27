@@ -34,13 +34,23 @@ public class AbilitiesInGameHui {
 		matrices.push();
 		matrices.translate(startPos, iconHeight, -91f);
 
-		if(ClientPlayerManager.getInstance().areAbilitiesAvailable()) {
-			renderIcon(graphics, -iconSize+(iconSize/4), 0, iconSize, 1.5f, 0,2.5f,-0.25F, "dash", ClientPlayerManager.getInstance().getAbility("dash"));
-			renderIcon(graphics, iconSize+(iconSize/2), 0, iconSize, 0, 0, 0,0, "icon_edge",  ClientPlayerManager.getInstance().getAbility("chainsaw"));
-		}
-		else {
-			matrices.scale(0.75F, 0.75F, 1F);
-			renderAbilitiesUnavailable(graphics, (iconSize/2));
+		switch (ClientPlayerManager.getInstance().getAbilitiesState()) {
+
+			case NORMAL:
+				renderIcon(graphics, -iconSize+(iconSize/4), 0, iconSize, 1.5f, 0,2.5f,-0.25F, "dash", ClientPlayerManager.getInstance().getAbility("dash"));
+				renderIcon(graphics, iconSize+(iconSize/2), 0, iconSize, 0, 0, 0,0, "icon_edge",  ClientPlayerManager.getInstance().getAbility("chainsaw"));
+				break;
+
+			case CANTBELOADED:
+				matrices.scale(0.75F, 0.75F, 1F);
+				renderAbilitiesUnavailable(graphics, (iconSize/2));
+				break;
+
+			case DISABLED:
+				matrices.scale(0.75F, 0.75F, 1F);
+				renderAbilitiesDisabled(graphics, (iconSize/2));
+				break;
+
 		}
 
 		matrices.pop();
@@ -55,11 +65,18 @@ public class AbilitiesInGameHui {
 		}
 	}
 
+	private static void renderAbilitiesDisabled(GuiGraphics graphics, int y) {
+		if(PopKornClientConfig.INSTANCE.drawAbilitiesDisabledString.value()) {
+			TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+			Text text = Text.translatable("abilities.hud.disabled");
+			graphics.drawText(textRenderer, text, -(textRenderer.getWidth(text)/3), y, Color.ORANGE.getRGB(), false);
+		}
+	}
+
 	private static void renderIcon(GuiGraphics graphics, int x, int y, int size, float offsetX, int offsetY, float correctionOffsetX, float correctionOffsetY, String name, Ability ability) {
 		//TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 		//graphics.drawCenteredShadowedText(textRenderer, Text.keyBind(key.getTranslationKey()), x+(size/2), y+(size/2)-(textRenderer.fontHeight/2), Color.WHITE.getRGB());
 		graphics.drawGuiTexture(ICON_BASE, x, y, size, size);
-
 
 
 		graphics.getMatrices().push();

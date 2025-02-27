@@ -13,6 +13,8 @@ public class Ability {
 	private boolean isUsed = false;
 	private final boolean needConfirmation;
 
+	public static final Ability USELESS = new Ability(0, 0, false);
+
 	public Ability(int maxCharges, int cooldownTime, boolean needConfirmation) {
 		this.maxCharges = maxCharges;
 		this.charges = maxCharges;

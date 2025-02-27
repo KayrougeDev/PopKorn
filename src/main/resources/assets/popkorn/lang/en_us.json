@@ -43,6 +43,7 @@
   "abilities.chainsaw.targetcantbekill": "This target is too powerful to be killed !",
 
   "abilities.hud.cantrecoverdata": "Unable to recover abilities data",
+  "abilities.hud.disabled": "Abilities are disabled !",
 
 
   "title.popkorn.config": "PopKorn Config",
@@ -54,6 +55,9 @@
 
   "option.popkorn.warncantquerryabilitiesdata": "Can't recover abilities data warning",
   "option.popkorn.warncantquerryabilitiesdata.tooltip": "Show a warning message if unable to recover abilities data",
+
+  "option.popkorn.warnabilitiesdisabled": "Abilities disabled warning",
+  "option.popkorn.warnabilitiesdisabled.tooltip": "Show a warning message if abilities are disabled",
 
 
   "category.popkorn.block": "Block",

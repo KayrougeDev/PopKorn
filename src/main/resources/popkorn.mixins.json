@@ -4,7 +4,6 @@
   "package": "fr.kayrouge.popkorn.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "accessor.BlockEntityTypeAccessor",
     "EntityMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
