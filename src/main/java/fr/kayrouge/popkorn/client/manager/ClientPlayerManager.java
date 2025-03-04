@@ -3,6 +3,8 @@ package fr.kayrouge.popkorn.client.manager;
 import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.client.PopKornClient;
 import fr.kayrouge.popkorn.abilities.Ability;
+import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 import java.util.HashMap;
@@ -55,13 +57,17 @@ public class ClientPlayerManager {
 		return INSTANCE;
 	}
 
+	public static void useAbility(String ability) {
+		ClientPlayNetworking.send(new AbilitiesUseC2SPayload(ability));
+	}
+
 	public enum AbilitiesState {
 
 		NORMAL(true),
 		DISABLED(false),
 		CANTBELOADED(false);
 
-		boolean isAvailable;
+		final boolean isAvailable;
 
 		AbilitiesState(boolean available) {
 			this.isAvailable = available;

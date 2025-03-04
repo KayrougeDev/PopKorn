@@ -8,7 +8,9 @@
     "LivingEntityMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",
-    "ServerPlayNetworkHandlerMixin"
+    "ServerPlayerEntityMixin",
+    "ServerPlayNetworkHandlerMixin",
+    "ServerWorldMixin"
   ],
   "client": [
     "client.HeldItemRendererMixin",

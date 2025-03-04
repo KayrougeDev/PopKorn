@@ -22,6 +22,9 @@ public class PKRenderers {
 
 	@FunctionalInterface
 	public interface IPKRender {
-		void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, long endTimeMillis);
+		Runnable render(RenderContext renderContext, long endTimeMillis);
 	}
+
+	public record RenderContext(MatrixStack matrices, VertexConsumerProvider vertexConsumers) {}
+
 }

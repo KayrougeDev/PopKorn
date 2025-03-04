@@ -1,6 +1,7 @@
 package fr.kayrouge.popkorn.abilities;
 
 import fr.kayrouge.popkorn.server.manager.PlayerManager;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
@@ -35,7 +36,7 @@ public class Ability {
 		return true;
 	}
 
-	public void cantUse(ServerPlayerEntity player) {
+	public void cantUse(PlayerEntity player) {
 		player.sendMessage(Text.translatable("abilities.cantuse"), true);
 	}
 

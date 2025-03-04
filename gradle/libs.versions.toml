@@ -11,6 +11,8 @@ quilt_standard_libraries = "10.0.0-alpha.1+1.21"
 
 modmenu = "11.0.3"
 
+cca = "6.1.2"
+
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }

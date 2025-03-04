@@ -7,9 +7,7 @@ import fr.kayrouge.popkorn.registry.PKItems;
 import fr.kayrouge.popkorn.util.RenderUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
@@ -19,7 +17,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -51,12 +51,68 @@ public class WorldCustomRenderer {
 				while (iterator.hasNext()) {
 					Map.Entry<PKRenderers.IPKRender, Long> task = iterator.next();
 
-					task.getKey().render(worldRenderContext.matrixStack(), worldRenderContext.consumers(), task.getValue());
+					Runnable runnable = task.getKey().render(new PKRenderers.RenderContext(worldRenderContext.matrixStack(), worldRenderContext.consumers()), task.getValue());
 
-					if (task.getValue() < System.currentTimeMillis()) iterator.remove();
+					if (task.getValue() < System.currentTimeMillis()) {
+						iterator.remove();
+						runnable.run();
+					}
 				}
 			});
 		});
+	}
+
+	public static void renderLineInWorld(Vector3f startPos, Vector3f endPos, Color colorStart, Color colorEnd, double lineWidth, MatrixStack matrices, VertexConsumerProvider provider) {
+		Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
+
+		float cameraX = (float) camera.getPos().x;
+		float cameraY = (float) camera.getPos().y;
+		float cameraZ = (float) camera.getPos().z;
+
+		float startX = startPos.x;
+		float startY = startPos.y;
+		float startZ = startPos.z;
+		float adjustedStartX = startX - cameraX;
+		float adjustedStartY = startY - cameraY;
+		float adjustedStartZ = startZ - cameraZ;
+
+		float endX = endPos.x;
+		float endY = endPos.y;
+		float endZ = endPos.z;
+		float adjustedEndX = endX - cameraX;
+		float adjustedEndY = endY - cameraY;
+		float adjustedEndZ = endZ - cameraZ;
+
+		float q = adjustedEndX-adjustedStartX;
+		float r = adjustedEndY-adjustedStartY;
+		float s = adjustedEndZ-adjustedStartZ;
+		float t = (float) Math.sqrt(q * q + r * r + s * s);
+		q /= t;
+		r /= t;
+		s /= t;
+
+		matrices.push();
+
+		RenderSystem.setShader(GameRenderer::getPositionColorShader);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.enableDepthTest();
+		RenderSystem.disableBlend();
+		RenderSystem.disableCull();
+		RenderSystem.enablePolygonOffset();
+
+		MatrixStack.Entry entry = matrices.peek();
+		VertexConsumer consumer = provider.getBuffer(PKRenderLayer.getLineRenderLayer(lineWidth));
+		consumer.xyz(entry, adjustedStartX, adjustedStartY, adjustedStartZ)
+			.color(colorStart.getRed(), colorStart.getGreen(), colorStart.getBlue(), colorStart.getAlpha())
+			.normal(entry, q, r, s);
+
+		consumer.xyz(entry, adjustedEndX, adjustedEndY, adjustedEndZ)
+			.color(colorEnd.getRed(), colorEnd.getGreen(), colorEnd.getBlue(), colorEnd.getAlpha())
+			.normal(entry, q, r, s);
+
+		RenderSystem.disableBlend();
+		RenderSystem.enableCull();
+		matrices.pop();
 	}
 
 	public static void renderLightIndicator(Direction direction, int lightLevel, BlockPos pos, MatrixStack matrices, VertexConsumerProvider provider) {

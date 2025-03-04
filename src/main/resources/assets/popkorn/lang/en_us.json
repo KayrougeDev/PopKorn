@@ -11,6 +11,7 @@
   "effect.popkorn.shadow_walker": "Shadow Walker",
 
   "item.popkorn.ray_launcher": "Ray Launcher",
+  "item.popkorn.broken_hearts_knife": "Knife of Broken Hearts",
   "item.popkorn.light_glasses": "Light Glasses",
   "item.popkorn.chainsaw": "Chainsaw",
   "item.popkorn.solidified_demonic_energy": "Solidified Demonic Energy",
@@ -70,5 +71,9 @@
   "tag.item.popkorn.head_armor": "Armor Helmet",
   "tag.item.popkorn.chest_armor": "Armor Chestplate",
   "tag.item.popkorn.leg_armor": "Armor Leggings",
-  "tag.item.popkorn.foot_armor": "Armor Boots"
+  "tag.item.popkorn.foot_armor": "Armor Boots",
+
+  "soulmate.entity.name": "%1$s's Soulmate",
+  "soulmate.heartbroken.not": "You're not a Broken Heart",
+  "soulmate.heartbroken.nofallback": "Be careful there is not fallback !"
 }

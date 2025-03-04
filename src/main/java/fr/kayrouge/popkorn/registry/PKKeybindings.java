@@ -2,13 +2,15 @@ package fr.kayrouge.popkorn.registry;
 
 import com.mojang.blaze3d.platform.InputUtil;
 import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.client.PopKornClient;
+import fr.kayrouge.popkorn.client.manager.ClientPlayerManager;
 import fr.kayrouge.popkorn.client.screen.ConfigScreen;
-import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
 import fr.kayrouge.popkorn.util.PlayerUtil;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
+import net.minecraft.entity.player.PlayerEntity;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.QuiltLoader;
@@ -44,11 +46,11 @@ public class PKKeybindings {
 	public static void registerAction() {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while(DASH.wasPressed()) {
-				ClientPlayNetworking.send(new AbilitiesUseC2SPayload("dash"));
+				ClientPlayerManager.useAbility("dash");
 			}
 
 			while(CHAINSAW.wasPressed()) {
-				ClientPlayNetworking.send(new AbilitiesUseC2SPayload("chainsaw"));
+				ClientPlayerManager.useAbility("chainsaw");
 			}
 		});
 
@@ -64,9 +66,15 @@ public class PKKeybindings {
 			ClientTickEvents.END_CLIENT_TICK.register(client -> {
 				while (TEST.wasPressed()) {
 					PlayerUtil.startDisplayInfo();
+
+					PlayerEntity user = MinecraftClient.getInstance().player;
+
+					if(user == null) break;
+
+					PopKornClient.LOGGER.info(PKComponents.PLAYER_DATA.get(user).getSoulmateId().toString());
+					PopKornClient.LOGGER.info(String.valueOf(PKComponents.PLAYER_DATA.get(user).isHeartbroken()));
 				}
 			});
 		}
 	}
-
 }

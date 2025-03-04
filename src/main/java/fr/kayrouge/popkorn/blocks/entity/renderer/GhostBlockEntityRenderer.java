@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.blocks.entity.renderer;
 
+import fr.kayrouge.popkorn.blocks.GhostBlock;
 import fr.kayrouge.popkorn.blocks.entity.GhostBlockEntity;
 import fr.kayrouge.popkorn.registry.PKBlocks;
 import fr.kayrouge.popkorn.registry.PKItems;
@@ -59,7 +60,7 @@ public class GhostBlockEntityRenderer implements BlockEntityRenderer<GhostBlockE
 				blockRenderView, matrices, vertexConsumers.getBuffer(RenderLayer.getBlockLayers().getLast()), true, RandomGenerator.createLegacy());
 		}
 
-		if(blockToDisplay instanceof BlockWithEntity blockWithEntity) {
+		if(blockToDisplay instanceof BlockWithEntity blockWithEntity && !(blockToDisplay instanceof GhostBlock)) {
 			BlockEntity blockEntityToDisplay = blockWithEntity.createBlockEntity(ghostBlockEntity.getPos(), blockStateToDisplay);
 			blockEntityToDisplay.setWorld(ghostBlockEntity.getWorld());
 			this.context.getRenderDispatcher().get(blockEntityToDisplay).render(blockEntityToDisplay, tickDelta, matrices, vertexConsumers, light, overlay);

@@ -32,6 +32,7 @@ workspace/
 
 # macOS
 *.DS_Store
+.gitignore
 
 # custom
 BBMODEL/

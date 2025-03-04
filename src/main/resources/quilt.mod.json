@@ -20,7 +20,8 @@
 			"init": "fr.kayrouge.popkorn.PopKorn",
 			"client_init": "fr.kayrouge.popkorn.client.PopKornClient",
 			"modmenu": "fr.kayrouge.popkorn.util.impl.PopKornModMenuApiImpl",
-			"fabric-gametest": "fr.kayrouge.popkorn.util.PKTests"
+			"fabric-gametest": "fr.kayrouge.popkorn.util.PKTests",
+			"cardinal-components": "fr.kayrouge.popkorn.registry.PKComponents"
 		},
 		"depends": [
 			{
@@ -41,5 +42,9 @@
 			}
 		]
 	},
+	"cardinal-components": [
+		"popkorn:player_data",
+		"popkorn:entity_data"
+	],
 	"mixin": "popkorn.mixins.json"
 }

@@ -2,6 +2,7 @@ package fr.kayrouge.popkorn.network.packet;
 
 import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
+import fr.kayrouge.popkorn.network.packet.c2s.SoulmateConnectionC2SPayload;
 import fr.kayrouge.popkorn.network.packet.c2s.UpdateItemDisplayC2SPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseConfirmationS2CPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.PlayerAbilitiesUpdateS2CPayload;
@@ -14,6 +15,7 @@ import net.minecraft.util.Identifier;
 public class PKNetworkingConstants {
 
 	public static final Identifier ABILITIES_USE_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_use");
+	public static final Identifier SOULMATE_CONNECTION_PACKET_ID = Identifier.of(PopKorn.MODID, "soulmate_connection");
 	public static final Identifier UPDATE_DISPLAY_ITEM_PACKET_ID = Identifier.of(PopKorn.MODID, "update_display_item");
 
 	public static final Identifier ABILITIES_UPDATE_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_update");
@@ -22,6 +24,7 @@ public class PKNetworkingConstants {
 
 	public static void registerC2S() {
 		PayloadTypeRegistry.playC2S().register(AbilitiesUseC2SPayload.ID, AbilitiesUseC2SPayload.CODEC);
+		PayloadTypeRegistry.playC2S().register(SoulmateConnectionC2SPayload.ID, SoulmateConnectionC2SPayload.CODEC);
 		PayloadTypeRegistry.playC2S().register(UpdateItemDisplayC2SPayload.ID, UpdateItemDisplayC2SPayload.CODEC);
 	}
 
@@ -34,6 +37,7 @@ public class PKNetworkingConstants {
 
 	public static void registerC2SGlobalReceiver() {
 		ServerPlayNetworking.registerGlobalReceiver(AbilitiesUseC2SPayload.ID, AbilitiesUseC2SPayload::receive);
+		ServerPlayNetworking.registerGlobalReceiver(SoulmateConnectionC2SPayload.ID, SoulmateConnectionC2SPayload::receive);
 		ServerPlayNetworking.registerGlobalReceiver(UpdateItemDisplayC2SPayload.ID, UpdateItemDisplayC2SPayload::receive);
 	}
 

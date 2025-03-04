@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 public class PKItemGroups {
 
 	public static final RegistryKey<ItemGroup> DEMONIC;
+	public static final RegistryKey<ItemGroup> SOULMATE;
 
 	private static RegistryKey<ItemGroup> createRegistryKey(String name, ItemGroup group) {
 		Registry.register(Registries.ITEM_GROUP, Identifier.of(PopKorn.MODID, name), group);
@@ -21,9 +22,14 @@ public class PKItemGroups {
 	}
 
 	static {
-		DEMONIC = createRegistryKey("demonic", new ItemGroup.Builder(ItemGroup.VerticalPosition.TOP, 1)
+		DEMONIC = createRegistryKey("demonic", new ItemGroup.Builder(ItemGroup.VerticalPosition.TOP, 0)
 			.icon(() -> new ItemStack(PKItems.RAW_DEMONIC_ENERGY))
 			.name(Text.translatable("itemGroup.demonic"))
+			.build());
+
+		SOULMATE = createRegistryKey("soulmate", new ItemGroup.Builder(ItemGroup.VerticalPosition.TOP, 1)
+			.icon(() -> new ItemStack(PKItems.SOUL_RAY_ITEM))
+			.name(Text.translatable("itemGroup.soulmate"))
 			.build());
 	}
 

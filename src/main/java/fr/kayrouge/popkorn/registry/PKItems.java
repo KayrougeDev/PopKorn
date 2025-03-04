@@ -2,7 +2,9 @@ package fr.kayrouge.popkorn.registry;
 
 import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.items.EquippableItem;
+import fr.kayrouge.popkorn.items.HeartBrokenKnifeItem;
 import fr.kayrouge.popkorn.items.RayLauncherItem;
+import fr.kayrouge.popkorn.items.SoulRayItem;
 import fr.kayrouge.popkorn.items.armor.PKArmorMaterials;
 import fr.kayrouge.popkorn.items.group.PKItemGroups;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -16,6 +18,8 @@ import net.minecraft.util.Rarity;
 public class PKItems {
 
 	public static final Item RAY_LAUNCHER_ITEM;
+	public static final Item SOUL_RAY_ITEM;
+	public static final Item BROKEN_HEART_KNIFE;
 
 	public static final Item CHAINSAW;
 	public static final Item SOLIDIFIED_DEMONIC_ENERGY;
@@ -37,6 +41,8 @@ public class PKItems {
 
 	static {
 		RAY_LAUNCHER_ITEM = register("ray_launcher", new RayLauncherItem(), ItemGroups.TOOLS_AND_UTILITIES);
+		SOUL_RAY_ITEM = register("soul_ray_item", new SoulRayItem(new Item.Settings()), PKItemGroups.SOULMATE);
+		BROKEN_HEART_KNIFE = register("broken_hearts_knife", new HeartBrokenKnifeItem(new Item.Settings().maxCount(1)), PKItemGroups.SOULMATE);
 
 		CHAINSAW = register("chainsaw", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)), ItemGroups.TOOLS_AND_UTILITIES);
 

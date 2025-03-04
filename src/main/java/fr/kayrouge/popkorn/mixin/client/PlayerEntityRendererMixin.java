@@ -26,7 +26,7 @@ public class PlayerEntityRendererMixin {
 
 	@Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("TAIL"))
 	public void render(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int i, CallbackInfo ci) {
-			//renderLine(matrices, vertexConsumers, renderLayer);
+			//renderLine(matrices, vertexConsumers, PKRenderLayer.XRAY_LINES);
 		}
 
 	@Unique
@@ -47,9 +47,9 @@ public class PlayerEntityRendererMixin {
 
 		VertexConsumer provider = vertexConsumers.getBuffer(renderLayer);
 
-		float n1 = (float) (x - x);
-		float n2 = (float) (y - y+2f);
-		float n3 = (float) (z - z);
+		float n1 = (float) (0.0);
+		float n2 = (float) (0.0 +2f);
+		float n3 = (float) (0.0);
 
 		float t = (float)Math.sqrt(n1 * n1 + n2 * n2 + n3 * n3);
 		n1 /= t;

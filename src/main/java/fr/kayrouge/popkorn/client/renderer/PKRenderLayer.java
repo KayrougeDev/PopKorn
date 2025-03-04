@@ -9,7 +9,21 @@ import java.util.OptionalDouble;
 
 public class PKRenderLayer {
 
-	public static final RenderLayer XRAY_LINES;
+	public static final RenderLayer.MultiPhase XRAY_LINES;
+
+	public static RenderLayer.MultiPhase getLineRenderLayer(double width) {
+		return RenderLayer.of(
+			"lines",
+			VertexFormats.LINES,
+			VertexFormat.DrawMode.LINES,
+			1536,
+			RenderLayer.MultiPhaseParameters.builder().shader(RenderPhase.LINES_SHADER)
+				.lineWidth(new RenderPhase.LineWidth(OptionalDouble.of(width)))
+				.layering(RenderPhase.VIEW_OFFSET_Z_LAYERING)
+				.transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
+				.target(RenderPhase.ITEM_TARGET)
+				.writeMaskState(RenderPhase.ALL_MASK).cull(RenderPhase.DISABLE_CULLING).build(false));
+	}
 
 	static {
 		XRAY_LINES =  RenderLayer.of("xray_lines",

@@ -48,18 +48,14 @@ public class RayLauncherItem extends Item {
 				//drawParticleLine(MinecraftClient.getInstance().world, startPos, hitResult.getPos());
 
 
-				if(world.getBlockState(hitResult.getBlockPos().up()).getBlock() == Blocks.AIR && world.getBlockState(hitResult.getBlockPos()).isLavaIgnitable()) {
+				PlayerUtil.getPlayerInRange(world, user, 20f).forEach(player -> {
+					if(player instanceof  ServerPlayerEntity) {
+						ServerPlayNetworking.send((ServerPlayerEntity)player, new RayLauncherUseS2CPayload(startPos.toVector3f(), hitResult.getPos().toVector3f()));
+					}
+				});
 
-					PlayerUtil.getPlayerInRange(world, user).forEach(player -> {
-						if(player instanceof  ServerPlayerEntity) {
-							user.sendMessage(player.getName(), false);
-							ServerPlayNetworking.send((ServerPlayerEntity)player, new RayLauncherUseS2CPayload(startPos.toVector3f(), hitResult.getPos().toVector3f()));
-						}
-					});
-
-					world.setBlockState(hitResult.getBlockPos().up(), Blocks.FIRE.getDefaultState());
-					user.getStackInHand(hand).damageEquipment(1, user, LivingEntity.getHand(hand));
-				}
+				world.setBlockState(hitResult.getBlockPos(), Blocks.GOLD_BLOCK.getDefaultState());
+				user.getStackInHand(hand).damageEquipment(1, user, LivingEntity.getHand(hand));
 
 				return TypedActionResult.success(user.getStackInHand(hand), true);
 			}
