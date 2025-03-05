@@ -11,7 +11,9 @@
 				"Kayrouge": "Owner"
 			},
 			"contact": {
-				"homepage": ""
+				"homepage": "https://example.com/",
+				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
+				"sources": "https://github.com/QuiltMC/quilt-template-mod"
 			},
 			"icon": "assets/popkorn/textures/item/ray_launcher.png"
 		},
@@ -26,11 +28,11 @@
 		"depends": [
 			{
 				"id": "quilt_loader",
-				"versions": ">=0.26.4"
+				"versions": ">=0.28.0"
 			},
 			{
-				"id": "quilt_loader",
-				"versions": ">=0.26.4"
+				"id": "quilted_fabric_api",
+				"versions": ">=11.0.0-alpha.3+0.102.0-1.21"
 			},
 			{
 				"id": "cloth-config",

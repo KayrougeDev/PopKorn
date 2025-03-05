@@ -51,22 +51,22 @@ public class PlayerDataComponent implements AutoSyncedComponent {
 	@Override
 	public void writeSyncPacket(RegistryByteBuf buf, ServerPlayerEntity recipient) {
 		buf.writeUuid(this.soulmateId);
-		buf.writeLong(this.soulmateTime);
 		buf.writeBoolean(this.heartbroken);
+		buf.writeLong(this.soulmateTime);
 	}
 
 	@CheckEnvironment(EnvType.CLIENT)
 	@Override
 	public void applySyncPacket(RegistryByteBuf buf) {
 		this.soulmateId = buf.readUuid();
-		this.soulmateTime = buf.readLong();
 		this.heartbroken = buf.readBoolean();
+		this.soulmateTime = buf.readLong();
 
 		renderSoulmateConnection();
 	}
 
 	private void renderSoulmateConnection() {
-		if(this.isHeartbroken()) return;
+		if(this.isHeartbroken() || this.soulmateTime == 0L || this.soulmateId.equals(PlayerUtil.DEFAULT_UUID)) return;
 
 		AtomicReference<LivingEntity> targetEntity = new AtomicReference<>();
 		if(this.player.getWorld() instanceof ClientWorld world) {
@@ -93,7 +93,7 @@ public class PlayerDataComponent implements AutoSyncedComponent {
 				3.65d,
 				renderContext.matrices(), renderContext.vertexConsumers());
 
-			return () -> ClientPlayNetworking.send(new SoulmateConnectionC2SPayload(this.soulmateId, this.soulmateTime));
+			return () -> ClientPlayNetworking.send(new SoulmateConnectionC2SPayload());
 		}, SoulRayItem.ANIMATION_TIME);
 	}
 
@@ -129,5 +129,9 @@ public class PlayerDataComponent implements AutoSyncedComponent {
 
 	public void setHeartbroken(boolean heartbroken) {
 		this.heartbroken = heartbroken;
+	}
+
+	public long getSoulmateTime() {
+		return soulmateTime;
 	}
 }

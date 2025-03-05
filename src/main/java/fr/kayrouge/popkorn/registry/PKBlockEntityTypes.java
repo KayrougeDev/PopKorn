@@ -28,9 +28,9 @@ public class PKBlockEntityTypes {
 		GHOST_BLOCK_ENTITY_TYPE = create("ghost_block", BlockEntityType.Builder.create(GhostBlockEntity::new, PKBlocks.GHOST_BLOCK));
 	}
 
-	public static <T extends BlockEntity> BlockEntityType<T> create(String path, BlockEntityType.Builder<T> builder) {
-		Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, path);
-		return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PopKorn.MODID, path), builder.build(type));
+	public static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.Builder<T> builder) {
+		Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);
+		return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PopKorn.MODID, id), builder.build(type));
 	}
 
 	public static void initialize() {

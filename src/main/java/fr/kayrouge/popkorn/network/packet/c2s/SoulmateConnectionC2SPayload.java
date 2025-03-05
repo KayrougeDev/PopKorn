@@ -1,6 +1,7 @@
 package fr.kayrouge.popkorn.network.packet.c2s;
 
 import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.component.PlayerDataComponent;
 import fr.kayrouge.popkorn.network.packet.PKNetworkingConstants;
 import fr.kayrouge.popkorn.registry.PKComponents;
 import fr.kayrouge.popkorn.util.PlayerUtil;
@@ -11,25 +12,19 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.payload.CustomPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.UuidUtil;
 
 import java.awt.*;
-import java.util.UUID;
 
-public record SoulmateConnectionC2SPayload(UUID soulmate, long mateTime) implements CustomPayload {
+public record SoulmateConnectionC2SPayload() implements CustomPayload {
 
 	public static final Id<SoulmateConnectionC2SPayload> ID = new Id<>(PKNetworkingConstants.SOULMATE_CONNECTION_PACKET_ID);
 
-	public static final PacketCodec<RegistryByteBuf, SoulmateConnectionC2SPayload> CODEC = PacketCodec.tuple(
-		UuidUtil.PACKET_CODEC, SoulmateConnectionC2SPayload::soulmate,
-		PacketCodecs.VAR_LONG, SoulmateConnectionC2SPayload::mateTime,
-		SoulmateConnectionC2SPayload::new);
+	public static final PacketCodec<RegistryByteBuf, SoulmateConnectionC2SPayload> CODEC = PacketCodec.unit(new SoulmateConnectionC2SPayload());
 
 	@Override
 	public Id<? extends CustomPayload> getId() {
@@ -39,19 +34,32 @@ public record SoulmateConnectionC2SPayload(UUID soulmate, long mateTime) impleme
 	public void receive(ServerPlayNetworking.Context context) {
 		context.server().execute(() -> {
 			ServerPlayerEntity player = context.player();
+			PlayerDataComponent playerData = PKComponents.PLAYER_DATA.get(player);
 			ServerWorld world = player.getServerWorld();
-			// soulmate not null and soulmateTime not null
-			if(this.soulmate.equals(PlayerUtil.DEFAULT_UUID) || this.mateTime == 0L) return;
-			final long maxDiff = 100;
-			// 2000 - 1900 = 100
-			// 1900 - 2000 = -100
-			long timeDiff = world.getTime() - this.mateTime;
+			if(playerData.getSoulmateId().equals(PlayerUtil.DEFAULT_UUID)) {
+				PopKorn.LOGGER.info("TRY CONNECT WITH DEFAULT UUID");
+				return;
+			}
+			if(playerData.getSoulmateTime() == 0L) {
+				PopKorn.LOGGER.info("TRY CONNECT WITH 0 TICK TIME");
+				return;
+			}
+			if(PopKorn.DEBUG) {
+				PopKorn.LOGGER.info("COMP {}", PKComponents.PLAYER_DATA.get(player).getSoulmateTime());
+				PopKorn.LOGGER.info("WORLD {}", world.getTime());
+			}
+			final long maxDiff = -100;
+			long timeDiff = playerData.getSoulmateTime() - world.getTime();
+			PopKorn.LOGGER.info("TIME DIFF {}", timeDiff);
 			// difference between the mate on server and the moment the packet was received
 			// not > 5s (3s anim + 2s in case of lag)
-			if(timeDiff > maxDiff || timeDiff < -maxDiff) return;
+			if(timeDiff > 0 || timeDiff < maxDiff) {
+				PopKorn.LOGGER.warn("TIME DIFF TOO BIG FOR {}", player.getProfileName());
+				return;
+			}
 
 			// check soulmate exists
-			if(world.getEntity(this.soulmate) instanceof LivingEntity entity) {
+			if(world.getEntity(playerData.getSoulmateId()) instanceof LivingEntity entity) {
 
 				giveSoulMateModifier(player, entity);
 
@@ -60,6 +68,9 @@ public record SoulmateConnectionC2SPayload(UUID soulmate, long mateTime) impleme
 				entity.setCustomNameVisible(true);
 
 				PKComponents.ENTITY_DATA.get(entity).setPlayerMate(player.getUuid());
+
+				playerData.setSoulmateId(playerData.getSoulmateId(), 0L);
+				PKComponents.PLAYER_DATA.sync(player);
 			}
 
 		});

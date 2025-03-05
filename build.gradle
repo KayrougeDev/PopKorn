@@ -7,8 +7,7 @@ base {
 	archivesName = project.archives_base_name
 }
 
-//version = "$project.version+${libs.versions.minecraft.get()}"
-version = "$project.version"
+version = "$project.version+${libs.versions.minecraft.get()}"
 group = project.maven_group
 
 repositories {
@@ -23,8 +22,8 @@ repositories {
 		url = "https://maven.terraformersmc.com/"
 	}
 	maven {
-		// maven for cloth config
-		url "https://maven.shedaniel.me/"
+		name = "Shedaniel"
+		url = "https://maven.shedaniel.me/"
 	}
 	maven {
 		name = "Ladysnake Mods"
@@ -71,8 +70,12 @@ dependencies {
 	}
 
 	// Replace modImplementation with modApi if you expose components in your own API
-	modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${libs.versions.cca.get()}"
-	modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${libs.versions.cca.get()}"
+	modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-base:${libs.versions.cca.get()}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-entity:${libs.versions.cca.get()}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {
