@@ -31,7 +31,7 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
 	public ItemDisplayScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, ItemDisplayData itemDisplayData, ScreenHandlerContext context) {
 		super(PKHandledScreens.ITEM_DISPLAY_SCREEN_HANDLER, syncId);
 		this.inventory = inventory;
-		this.addSlot(new ItemDisplaySlot(inventory, 0, 5, 5, this));
+		this.addSlot(new ItemDisplaySlot(inventory, 0, 26, 35, this));
 		this.itemDisplayData = itemDisplayData;
 		this.context = context;
 		this.playerInventory = playerInventory;

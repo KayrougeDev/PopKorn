@@ -26,7 +26,6 @@ import java.util.Map;
 public class WorldCustomRenderer {
 
 	public static void render() {
-
 		WorldRenderEvents.BLOCK_OUTLINE.register((worldRenderContext, blockOutlineContext) -> !(blockOutlineContext.blockState().getBlock() instanceof ChunkRendererBlock));
 		WorldRenderEvents.BLOCK_OUTLINE.register((worldRenderContext, blockOutlineContext) -> {
 
@@ -37,7 +36,7 @@ public class WorldCustomRenderer {
 					pos = pos.offset(result.getSide());
 
 					renderLightIndicator(result.getSide(), worldRenderContext.world().getLightLevel(pos), pos, worldRenderContext.matrixStack(), worldRenderContext.consumers());
-					return true;
+					return false;
 				}
 			}
 

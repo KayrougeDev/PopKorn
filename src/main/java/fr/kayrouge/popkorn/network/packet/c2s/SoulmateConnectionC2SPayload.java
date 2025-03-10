@@ -37,11 +37,11 @@ public record SoulmateConnectionC2SPayload() implements CustomPayload {
 			PlayerDataComponent playerData = PKComponents.PLAYER_DATA.get(player);
 			ServerWorld world = player.getServerWorld();
 			if(playerData.getSoulmateId().equals(PlayerUtil.DEFAULT_UUID)) {
-				PopKorn.LOGGER.info("TRY CONNECT WITH DEFAULT UUID");
+				PopKorn.LOGGER.warn("TRY CONNECT WITH DEFAULT UUID");
 				return;
 			}
 			if(playerData.getSoulmateTime() == 0L) {
-				PopKorn.LOGGER.info("TRY CONNECT WITH 0 TICK TIME");
+				PopKorn.LOGGER.warn("TRY CONNECT WITH 0 TICK TIME");
 				return;
 			}
 			if(PopKorn.DEBUG) {
@@ -50,7 +50,6 @@ public record SoulmateConnectionC2SPayload() implements CustomPayload {
 			}
 			final long maxDiff = -100;
 			long timeDiff = playerData.getSoulmateTime() - world.getTime();
-			PopKorn.LOGGER.info("TIME DIFF {}", timeDiff);
 			// difference between the mate on server and the moment the packet was received
 			// not > 5s (3s anim + 2s in case of lag)
 			if(timeDiff > 0 || timeDiff < maxDiff) {
