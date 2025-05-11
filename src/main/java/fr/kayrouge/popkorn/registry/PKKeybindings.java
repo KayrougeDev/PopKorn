@@ -19,6 +19,7 @@ public class PKKeybindings {
 
 	public static final KeyBind DASH;
 	public static final KeyBind CHAINSAW;
+	public static final KeyBind TP_BACK;
 
 	public static final KeyBind TEST;
 
@@ -28,6 +29,7 @@ public class PKKeybindings {
 	static {
 		DASH = KeyBindingHelper.registerKeyBinding(new KeyBind("key.popkorn.dash", InputUtil.Type.MOUSE , GLFW.GLFW_MOUSE_BUTTON_4, KeyBind.MOVEMENT_CATEGORY));
 		CHAINSAW = KeyBindingHelper.registerKeyBinding(new KeyBind("key.popkorn.chainsaw", InputUtil.Type.MOUSE , GLFW.GLFW_MOUSE_BUTTON_5, KeyBind.GAMEPLAY_CATEGORY));
+		TP_BACK = KeyBindingHelper.registerKeyBinding(new KeyBind("key.popkorn.tpback", InputUtil.Type.MOUSE , GLFW.GLFW_KEY_C, KeyBind.GAMEPLAY_CATEGORY));
 
 		if(PopKorn.DEBUG) {
 			TEST = KeyBindingHelper.registerKeyBinding(new KeyBind("key.popkorn.test", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, KeyBind.MISC_CATEGORY));
@@ -45,6 +47,10 @@ public class PKKeybindings {
 
 	public static void registerAction() {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			while(TP_BACK.wasPressed()) {
+				ClientPlayerManager.getInstance().useTpBackAbility(client.player.getBlockPos().toImmutable());
+			}
+
 			while(DASH.wasPressed()) {
 				ClientPlayerManager.useAbility("dash");
 			}

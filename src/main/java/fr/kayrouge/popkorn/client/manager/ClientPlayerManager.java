@@ -5,6 +5,8 @@ import fr.kayrouge.popkorn.client.PopKornClient;
 import fr.kayrouge.popkorn.abilities.Ability;
 import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 import java.util.HashMap;
@@ -14,8 +16,9 @@ import java.util.Map;
 public class ClientPlayerManager {
 
 	private static ClientPlayerManager INSTANCE = new ClientPlayerManager();
-
 	private final Map<String, Ability> ABILITY_MAP  = new HashMap<>();
+
+	private BlockPos tpBackPos = new BlockPos(0, 0, 0);
 
 	public void setAbilities(Map<String, Ability> abilities) {
 		ABILITY_MAP.clear();
@@ -59,6 +62,15 @@ public class ClientPlayerManager {
 
 	public static void useAbility(String ability) {
 		ClientPlayNetworking.send(new AbilitiesUseC2SPayload(ability));
+	}
+
+	public BlockPos getTpBackPos() {
+		return tpBackPos;
+	}
+
+	public void useTpBackAbility(BlockPos pos) {
+		useAbility("tpback");
+		tpBackPos = pos;
 	}
 
 	public enum AbilitiesState {

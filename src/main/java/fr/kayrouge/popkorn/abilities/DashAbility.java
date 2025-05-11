@@ -5,8 +5,8 @@ import net.minecraft.util.math.Vec3d;
 
 public class DashAbility extends Ability{
 
-	public DashAbility(int maxCharges, int cooldownTime, boolean needConfirmation) {
-		super(maxCharges, cooldownTime, needConfirmation);
+	public DashAbility(int maxCharges, int cooldownTime) {
+		super(maxCharges, cooldownTime);
 	}
 
 	@Override

@@ -2,7 +2,13 @@ package fr.kayrouge.popkorn.client.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import fr.kayrouge.popkorn.PopKorn;
+import fr.kayrouge.popkorn.abilities.Ability;
+import fr.kayrouge.popkorn.abilities.TPBackAbility;
 import fr.kayrouge.popkorn.blocks.ChunkRendererBlock;
+import fr.kayrouge.popkorn.client.PopKornClient;
+import fr.kayrouge.popkorn.client.manager.ClientPlayerManager;
+import fr.kayrouge.popkorn.debug.AnimationTest;
 import fr.kayrouge.popkorn.registry.PKItems;
 import fr.kayrouge.popkorn.util.RenderUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -22,13 +28,13 @@ import org.joml.Vector3f;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class WorldCustomRenderer {
 
 	public static void render() {
 		WorldRenderEvents.BLOCK_OUTLINE.register((worldRenderContext, blockOutlineContext) -> !(blockOutlineContext.blockState().getBlock() instanceof ChunkRendererBlock));
 		WorldRenderEvents.BLOCK_OUTLINE.register((worldRenderContext, blockOutlineContext) -> {
-
 			if(blockOutlineContext.entity() instanceof PlayerEntity player) {
 				if(player.getInventory().getArmorStack(3).getItem() == PKItems.LIGHT_GLASSES) {
 					BlockHitResult result = (BlockHitResult) player.raycast(player.getBlockInteractionRange(), worldRenderContext.tickCounter().getTickDelta(true), false);
@@ -59,28 +65,34 @@ public class WorldCustomRenderer {
 				}
 			});
 		});
+
+		WorldRenderEvents.LAST.register(worldRenderContext -> {
+			if(ClientPlayerManager.getInstance().getAbility("tpback").isUsed()) {
+				TPBackAbility.renderTpPos(ClientPlayerManager.getInstance().getTpBackPos(), worldRenderContext.matrixStack(), worldRenderContext.consumers());
+			}
+		});
 	}
 
 	public static void renderLineInWorld(Vector3f startPos, Vector3f endPos, Color colorStart, Color colorEnd, double lineWidth, MatrixStack matrices, VertexConsumerProvider provider) {
 		Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
 
-		float cameraX = (float) camera.getPos().x;
-		float cameraY = (float) camera.getPos().y;
-		float cameraZ = (float) camera.getPos().z;
+		final float cameraX = (float) camera.getPos().x;
+		final float cameraY = (float) camera.getPos().y;
+		final float cameraZ = (float) camera.getPos().z;
 
-		float startX = startPos.x;
-		float startY = startPos.y;
-		float startZ = startPos.z;
-		float adjustedStartX = startX - cameraX;
-		float adjustedStartY = startY - cameraY;
-		float adjustedStartZ = startZ - cameraZ;
+		final float startX = startPos.x;
+		final float startY = startPos.y;
+		final float startZ = startPos.z;
+		final float adjustedStartX = startX - cameraX;
+		final float adjustedStartY = startY - cameraY;
+		final float adjustedStartZ = startZ - cameraZ;
 
-		float endX = endPos.x;
-		float endY = endPos.y;
-		float endZ = endPos.z;
-		float adjustedEndX = endX - cameraX;
-		float adjustedEndY = endY - cameraY;
-		float adjustedEndZ = endZ - cameraZ;
+		final float endX = endPos.x;
+		final float endY = endPos.y;
+		final float endZ = endPos.z;
+		final float adjustedEndX = endX - cameraX;
+		final float adjustedEndY = endY - cameraY;
+		final float adjustedEndZ = endZ - cameraZ;
 
 		float q = adjustedEndX-adjustedStartX;
 		float r = adjustedEndY-adjustedStartY;

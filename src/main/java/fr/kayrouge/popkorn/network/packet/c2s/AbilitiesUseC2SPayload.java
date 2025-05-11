@@ -2,7 +2,7 @@ package fr.kayrouge.popkorn.network.packet.c2s;
 
 import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.network.packet.PKNetworkingConstants;
-import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseConfirmationS2CPayload;
+import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseS2CPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.PlayerAbilitiesUpdateS2CPayload;
 import fr.kayrouge.popkorn.server.manager.PlayerManager;
 import fr.kayrouge.popkorn.abilities.Ability;
@@ -12,6 +12,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.payload.CustomPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 
 public record AbilitiesUseC2SPayload(String ability) implements CustomPayload {
 
@@ -37,9 +38,7 @@ public record AbilitiesUseC2SPayload(String ability) implements CustomPayload {
 			if(receiveAbility.isAvailable()) {
 				if(receiveAbility.use(player)) {
 					context.responseSender().sendPacket(new PlayerAbilitiesUpdateS2CPayload(PlayerManager.getAbilities(player)));
-					if(receiveAbility.needConfirmation()) {
-						context.responseSender().sendPacket(new AbilitiesUseConfirmationS2CPayload(ability));
-					}
+					receiveAbility.afterUse(player);
 				}
 			}
 			else {

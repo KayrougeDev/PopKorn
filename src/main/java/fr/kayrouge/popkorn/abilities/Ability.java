@@ -1,5 +1,6 @@
 package fr.kayrouge.popkorn.abilities;
 
+import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
 import fr.kayrouge.popkorn.server.manager.PlayerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -12,16 +13,21 @@ public class Ability {
 	private int cooldown;
 	private final int cooldownTime;
 	private boolean isUsed = false;
-	private final boolean needConfirmation;
 
-	public static final Ability USELESS = new Ability(0, 0, false);
+	private final boolean syncIsUsed;
 
-	public Ability(int maxCharges, int cooldownTime, boolean needConfirmation) {
+	public static final Ability USELESS = new Ability(0, 0);
+
+	public Ability(int maxCharges, int cooldownTime, boolean syncIsUsed) {
 		this.maxCharges = maxCharges;
 		this.charges = maxCharges;
 		this.cooldownTime = cooldownTime;
 		this.cooldown = 0;
-		this.needConfirmation = needConfirmation;
+		this.syncIsUsed = syncIsUsed;
+	}
+
+	public Ability(int maxCharges, int cooldownTime) {
+		this(maxCharges, cooldownTime, false);
 	}
 
 	public boolean isAvailable() {
@@ -48,6 +54,12 @@ public class Ability {
 				PlayerManager.updateClient(player);
 			}
 		}
+	}
+
+	/**
+	 * called after {@link Ability#use(ServerPlayerEntity)} when the server receives the {@link AbilitiesUseC2SPayload}
+	 * */
+	public void afterUse(ServerPlayerEntity player) {
 	}
 
 	public void setCharges(int charges) {
@@ -82,7 +94,7 @@ public class Ability {
 		return this.isUsed;
 	}
 
-	public boolean needConfirmation() {
-		return this.needConfirmation;
+	public boolean shouldSyncIsUsed() {
+		return syncIsUsed;
 	}
 }

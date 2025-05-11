@@ -4,7 +4,7 @@ import fr.kayrouge.popkorn.PopKorn;
 import fr.kayrouge.popkorn.network.packet.c2s.AbilitiesUseC2SPayload;
 import fr.kayrouge.popkorn.network.packet.c2s.SoulmateConnectionC2SPayload;
 import fr.kayrouge.popkorn.network.packet.c2s.UpdateItemDisplayC2SPayload;
-import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseConfirmationS2CPayload;
+import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseS2CPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.PlayerAbilitiesUpdateS2CPayload;
 import fr.kayrouge.popkorn.network.packet.s2c.RayLauncherUseS2CPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -14,10 +14,12 @@ import net.minecraft.util.Identifier;
 
 public class PKNetworkingConstants {
 
+	//C2S
 	public static final Identifier ABILITIES_USE_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_use");
 	public static final Identifier SOULMATE_CONNECTION_PACKET_ID = Identifier.of(PopKorn.MODID, "soulmate_connection");
 	public static final Identifier UPDATE_DISPLAY_ITEM_PACKET_ID = Identifier.of(PopKorn.MODID, "update_display_item");
 
+	//S2C
 	public static final Identifier ABILITIES_UPDATE_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_update");
 	public static final Identifier ABILITIES_USE_CONFIRMATION_PACKET_ID = Identifier.of(PopKorn.MODID, "abilities_update_confirmation");
 	public static final Identifier RAY_LAUNCHER_USE_PACKET_ID = Identifier.of(PopKorn.MODID, "ray_launcher_use");
@@ -30,7 +32,7 @@ public class PKNetworkingConstants {
 
 	public static void registerS2C() {
 		PayloadTypeRegistry.playS2C().register(PlayerAbilitiesUpdateS2CPayload.ID, PlayerAbilitiesUpdateS2CPayload.CODEC);
-		PayloadTypeRegistry.playS2C().register(AbilitiesUseConfirmationS2CPayload.ID, AbilitiesUseConfirmationS2CPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(AbilitiesUseS2CPayload.ID, AbilitiesUseS2CPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(RayLauncherUseS2CPayload.ID, RayLauncherUseS2CPayload.CODEC);
 	}
 
@@ -43,7 +45,7 @@ public class PKNetworkingConstants {
 
 	public static void registerS2CGlobalReceiver() {
 		ClientPlayNetworking.registerGlobalReceiver(PlayerAbilitiesUpdateS2CPayload.ID, PlayerAbilitiesUpdateS2CPayload::receive);
-		ClientPlayNetworking.registerGlobalReceiver(AbilitiesUseConfirmationS2CPayload.ID, AbilitiesUseConfirmationS2CPayload::receive);
+		ClientPlayNetworking.registerGlobalReceiver(AbilitiesUseS2CPayload.ID, AbilitiesUseS2CPayload::receive);
 		ClientPlayNetworking.registerGlobalReceiver(RayLauncherUseS2CPayload.ID, RayLauncherUseS2CPayload::receive);
 	}
 

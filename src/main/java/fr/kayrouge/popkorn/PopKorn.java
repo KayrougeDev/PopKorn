@@ -14,7 +14,7 @@ public class PopKorn implements ModInitializer {
 
 	public static final String MODID = "popkorn";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
-	public static final Boolean DEBUG = true;
+	public static final Boolean DEBUG = false;
 
 	@Override
 	public void onInitialize(ModContainer mod) {

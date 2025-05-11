@@ -15,7 +15,6 @@ import net.minecraft.util.math.Vec3d;
 public class RenderUtil {
 
 	public static void renderFloatingText(Text text, double x, double y, double z, MatrixStack matrices, VertexConsumerProvider provider, TextRotationType rotationType) {
-
 		Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
 		Vec3d cameraPos = camera.getPos();
 

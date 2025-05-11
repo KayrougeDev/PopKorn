@@ -18,15 +18,25 @@ public interface PKPacketCodecs {
 			int size = byteBuf.readInt();
 			for (int i = 0; i < size; i++) {
 				String key = StringEncoding.read(byteBuf, 16);
-				int remainingCharges = PacketCodecs.INT.decode(byteBuf);
-				int maxCharges = PacketCodecs.INT.decode(byteBuf);
+				final int remainingCharges = PacketCodecs.INT.decode(byteBuf);
+				final int maxCharges = PacketCodecs.INT.decode(byteBuf);
 
-				int cooldown = PacketCodecs.INT.decode(byteBuf);
-				int cooldownTime = PacketCodecs.INT.decode(byteBuf);
+				final int cooldown = PacketCodecs.INT.decode(byteBuf);
+				final int cooldownTime = PacketCodecs.INT.decode(byteBuf);
 
-				Ability ability = new Ability(maxCharges, cooldownTime, false);
+				final boolean shouldSync = PacketCodecs.BOOL.decode(byteBuf);
+				boolean isUsed = false;
+				if(shouldSync) {
+					isUsed = PacketCodecs.BOOL.decode(byteBuf);
+				}
+
+				Ability ability = new Ability(maxCharges, cooldownTime);
 				ability.setCharges(remainingCharges);
 				ability.setCooldown(cooldown);
+
+				if(shouldSync) {
+					ability.setUsed(isUsed);
+				}
 
 				abilities.put(key, ability);
 			}
@@ -44,6 +54,12 @@ public interface PKPacketCodecs {
 
 				PacketCodecs.INT.encode(byteBuf, entry.getValue().getCooldown());
 				PacketCodecs.INT.encode(byteBuf, entry.getValue().getCooldownTime());
+
+				boolean shouldSync = entry.getValue().shouldSyncIsUsed();
+				PacketCodecs.BOOL.encode(byteBuf, shouldSync);
+				if(shouldSync) {
+					PacketCodecs.BOOL.encode(byteBuf, entry.getValue().isUsed());
+				}
 			}
 		}
 	};

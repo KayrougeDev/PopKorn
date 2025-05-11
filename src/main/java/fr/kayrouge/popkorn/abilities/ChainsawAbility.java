@@ -1,5 +1,7 @@
 package fr.kayrouge.popkorn.abilities;
 
+import fr.kayrouge.popkorn.network.packet.s2c.AbilitiesUseS2CPayload;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,8 +13,8 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public class ChainsawAbility extends Ability{
-	public ChainsawAbility(int maxCharges, int cooldownTime, boolean needConfirmation) {
-		super(maxCharges, cooldownTime, needConfirmation);
+	public ChainsawAbility(int maxCharges, int cooldownTime) {
+		super(maxCharges, cooldownTime);
 	}
 
 	@Override
@@ -33,13 +35,17 @@ public class ChainsawAbility extends Ability{
 				double x = calculatePos(player.getX(), target.getX());
 				double z = calculatePos(player.getZ(), target.getZ());
 
-
 				player.teleport(player.getServerWorld(), x, target.getY(), z, player.getYaw(), player.getPitch());
 				target.kill();
 				return super.use(player);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void afterUse(ServerPlayerEntity player) {
+		ServerPlayNetworking.send(player, new AbilitiesUseS2CPayload("chainsaw", true));
 	}
 
 	private double calculatePos(double playerPos, double targetPos) {
